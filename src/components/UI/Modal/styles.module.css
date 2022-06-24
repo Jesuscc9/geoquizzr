@@ -1,0 +1,38 @@
+.background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 99;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  background-color: #fff;
+  border-radius: 1rem;
+  z-index: 100;
+  max-width: 96%;
+  max-height: 98vh;
+  width: fit-content;
+}
+
+@media screen and (min-width: 1024px) {
+  .modal ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+}
+.modal ::-webkit-scrollbar-track {
+  background: #fff;
+}
+.modal ::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 20px;
+  border: 3px transparent;
+}

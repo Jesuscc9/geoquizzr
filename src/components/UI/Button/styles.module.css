@@ -1,0 +1,15 @@
+.Button {
+  border-radius: 3.75rem;
+  padding: 0.6rem 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+
+  transition: opacity 0.2s;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--white);
+}

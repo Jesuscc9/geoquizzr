@@ -1,0 +1,44 @@
+.Form {
+  width: 640px;
+  max-width: 94%;
+  margin: auto;
+}
+
+.Form h2 {
+  color: var(--white);
+  text-align: center;
+}
+
+.Form button {
+  margin: auto;
+  margin-top: 2rem;
+  font-size: 14px;
+}
+
+.GoogleLogin {
+  margin: 4rem auto;
+  width: 460px;
+  max-width: 100%;
+}
+
+.GoogleLogin__separator {
+  display: flex;
+  column-gap: 1.6rem;
+  align-items: center;
+
+  white-space: nowrap;
+}
+
+.GoogleLogin__separator p {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-100);
+}
+
+.GoogleLogin__separator div {
+  width: 100%;
+  height: 2px;
+  background-color: var(--gray-100);
+  border-radius: 0.2rem;
+}

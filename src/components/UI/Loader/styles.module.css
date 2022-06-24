@@ -1,0 +1,28 @@
+@keyframes Rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Loader {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoaderCircle {
+  position: absolute;
+  width: 100%;
+  animation: Rotation 2s linear infinite forwards;
+}
+
+.LoaderBg {
+  position: absolute;
+  width: 92px;
+}

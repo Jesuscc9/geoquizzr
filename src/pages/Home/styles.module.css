@@ -1,0 +1,79 @@
+.MainContainer {
+  --sections-padding: 0.4rem 1rem;
+}
+
+.BackgroundCity {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+
+  background-image: url('../../../public/assets/images/bg-city.svg');
+  background-repeat: no-repeat;
+  background-size: clamp(340px, 36vw, 600px);
+  background-position: 0 100%;
+  z-index: -1;
+}
+
+.Hero {
+  width: 100%;
+  position: relative;
+  margin-top: 1rem;
+  overflow-x: clip;
+}
+
+@media screen and (min-width: 768px) {
+  .MainContainer {
+    --sections-padding: 1rem 2rem;
+  }
+
+  .Hero {
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .MainContainer {
+    --sections-padding: 2rem 4rem;
+  }
+
+  .Hero {
+    margin-top: 3rem;
+  }
+
+  .BackgroundCity {
+    background-position: 0 100%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .MainContainer {
+    --sections-padding: 2rem 6rem;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .MainContainer {
+    --sections-padding: 2rem 12rem;
+  }
+}
+
+.Hero__text {
+  padding: var(--sections-padding);
+}
+
+.Hero__image {
+  position: absolute;
+  right: 0;
+  top: 24%;
+  z-index: -1;
+
+  transform: translateX(40%);
+}
+
+.Hero h1 {
+  font-size: 4rem;
+}
+
+.Hero__button {
+  padding: 1rem 1.6rem;
+}

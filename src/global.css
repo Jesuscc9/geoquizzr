@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'neo-sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://use.typekit.net/af/b07eb4/00000000000000007735bb57/30/l?primer=83aaf8b3086dc5b082c9b97866118e90ec8a0116a2f1fa26fea125d379f2cd21&fvd=n7&v=3')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'neo-sans';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://use.typekit.net/af/49bd4e/00000000000000007735bb45/30/l?primer=83aaf8b3086dc5b082c9b97866118e90ec8a0116a2f1fa26fea125d379f2cd21&fvd=i7&v=3')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'neo-sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://use.typekit.net/af/cc16b7/00000000000000007735bb40/30/l?primer=83aaf8b3086dc5b082c9b97866118e90ec8a0116a2f1fa26fea125d379f2cd21&fvd=i4&v=3')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'neo-sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://use.typekit.net/af/fde5b4/00000000000000007735bb56/30/l?primer=83aaf8b3086dc5b082c9b97866118e90ec8a0116a2f1fa26fea125d379f2cd21&fvd=n5&v=3')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'neo-sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://use.typekit.net/af/b34fab/00000000000000007735bb5f/30/l?primer=83aaf8b3086dc5b082c9b97866118e90ec8a0116a2f1fa26fea125d379f2cd21&fvd=n4&v=3')
+    format('woff2');
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+:root {
+  --purple-800: #1a1a2e;
+  --gray-700: rgba(16, 16, 28, 0.7);
+  --gray-200: hsla(0, 0%, 100%, 0.2);
+  --gray-100: hsla(0, 0%, 100%, 0.6);
+  --red-500: #e94560;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'neo-sans';
+  color: var(--white);
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--purple-800);
+}
+
+#BackgroundDecoration {
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+
+  animation: fadeIn 2s forwards;
+  transition: all 1s ease;
+}
+
+button {
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  border: 0;
+  outline: 0;
+}
+
+button:disabled {
+  opacity: 0.8;
+}
+
+a {
+  text-decoration: none;
+}
