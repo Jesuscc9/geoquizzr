@@ -1,52 +1,40 @@
+import { fetcher } from 'pages/_app'
 import { useState } from 'react'
-import { createQuizz, getQuizzes } from 'services'
 import useSWR from 'swr'
-import { iNewQuizz } from 'types'
+import { iNewQuizz, iQuizz } from 'types'
 
-interface PostgrestError {
-  message: string
-  details: string
-  hint: string
-  code: string
+const SWR_KEY = '/api/quizzes'
+
+interface iCreateProps {
+  body: iNewQuizz
+  onSuccess: (newQuizz: iQuizz) => void
 }
 
 export const useQuizzes = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [formError, setFormError] = useState<null | string>(null)
+  const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false)
+  const [errorCreate, setErrorCreate] = useState<null | string>(null)
 
-  const handleError = (e: PostgrestError | any) => {
-    setFormError(e.message)
-    setIsLoading(false)
-  }
+  const { data: quizzes, error } = useSWR(SWR_KEY)
 
-  const { data: quizzes, error } = useSWR('api/quizzes', () => {
-    return getQuizzes()
-  })
-
-  const create = async (values: iNewQuizz, onSuccess: (d: any) => void) => {
-    setIsLoading(true)
+  const create = async ({ body, onSuccess }: iCreateProps) => {
+    setIsLoadingCreate(true)
     try {
-      const { error, data } = await createQuizz(values)
-
-      if (error) {
-        handleError(error)
-        return
-      }
-
-      onSuccess({ error, newQuizz: data })
-      setIsLoading(false)
-      return { error, newQuizz: data }
-    } catch (e) {
-      handleError(e)
-      return { error: e }
+      const newQuizz: iQuizz = await fetcher(SWR_KEY, 'POST', body)
+      onSuccess(newQuizz)
+    } catch (e: any) {
+      setErrorCreate(String(e.response.data.error))
+      console.error(e)
+    } finally {
+      setIsLoadingCreate(false)
     }
   }
 
   return {
-    isLoading,
-    formError,
     quizzes,
+    isLoading: !quizzes && !error,
     error,
-    create
+    create,
+    isLoadingCreate,
+    errorCreate
   }
 }

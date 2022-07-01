@@ -1,7 +1,9 @@
-// import PersonIcon from '@/images/person.png'
+import PersonIcon from '@/images/person.png'
 import { ClueWrapper } from 'components/UI'
 import { motion } from 'framer-motion'
 import { maskNumber } from 'helpers/utils'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import useSWR from 'swr'
 import { iClue } from 'types'
@@ -15,11 +17,20 @@ interface iProps {
 export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
   const [revealClue, setRevealClue] = useState<boolean>(false)
 
-  const uuid = ''
+  const router = useRouter()
 
-  const { data: countryData, error } = useSWR(`api/quizzes/${uuid}`)
+  const {
+    query: { uuid }
+  } = router
+
+  const {
+    data: { countries: countryData },
+    error
+  } = useSWR(`/api/quizzes/${uuid}`)
 
   if (!countryData) return <div>cargando</div>
+
+  const { population } = countryData
 
   const handleClueClick = () => {
     if (revealClue === true) return
@@ -31,7 +42,7 @@ export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
     <>
       <div className={styles.PopulationClue} onClick={handleClueClick}>
         {revealClue ? (
-          <p>The population is {maskNumber(countryData.population)}</p>
+          <p>The population is {maskNumber(population)}</p>
         ) : (
           <>
             <h3>SHOW POPULATION</h3>
@@ -51,7 +62,7 @@ export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
           >
             {[1, 2, 3, 4, 5].map((e, i) => {
               return (
-                <motion.img
+                <motion.div
                   initial={{ opacity: 0, scale: 1 }}
                   animate={{ opacity: 1, scale: 1.2 }}
                   transition={{
@@ -59,17 +70,15 @@ export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
                     type: 'spring',
                     bounce: 0.4
                   }}
-                  // src={PersonIcon}
                   key={i}
-                  width='30'
-                  height='40'
-                  alt=''
-                />
+                >
+                  <Image src={PersonIcon} width='30' height='40' />
+                </motion.div>
               )
             })}
           </div>
           <h2 style={{ color: 'black', textAlign: 'center' }}>
-            {/* {maskNumber(population)} */}
+            {maskNumber(population)}
           </h2>
         </ClueWrapper>
       )}

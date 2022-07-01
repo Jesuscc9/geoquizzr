@@ -3,8 +3,8 @@ import React, { FC } from 'react'
 import styles from './styles.module.css'
 
 export const Footer: FC = () => {
-  const { user } = useUser()
   const { logout } = useAuth()
+  const { user } = useUser()
 
   return (
     <footer className={styles.Footer}>

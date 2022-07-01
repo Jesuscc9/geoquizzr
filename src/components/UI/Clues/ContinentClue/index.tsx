@@ -1,6 +1,8 @@
-// import PersonIcon from '@/images/person.png'
+import PersonIcon from '@/images/person.png'
 import { ClueWrapper } from 'components/UI'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import useSWR from 'swr'
 import { iClue } from 'types'
@@ -14,9 +16,16 @@ interface iProps {
 export const ContinentClue: FC<iProps> = ({ data, decrement }) => {
   const [revealClue, setRevealClue] = useState<boolean>(false)
 
-  const uuid = '2'
+  const router = useRouter()
 
-  const { data: countryData, error } = useSWR(`api/quizzes/${uuid}`)
+  const {
+    query: { uuid }
+  } = router
+
+  const {
+    data: { countries: countryData },
+    error
+  } = useSWR(`/api/quizzes/${uuid}`)
 
   if (!countryData) return <div>cargando</div>
 
@@ -54,7 +63,7 @@ export const ContinentClue: FC<iProps> = ({ data, decrement }) => {
           >
             {[1, 2, 3, 4, 5].map((e, i) => {
               return (
-                <motion.img
+                <motion.div
                   initial={{ opacity: 0, scale: 1 }}
                   animate={{ opacity: 1, scale: 1.2 }}
                   transition={{
@@ -62,12 +71,10 @@ export const ContinentClue: FC<iProps> = ({ data, decrement }) => {
                     type: 'spring',
                     bounce: 0.4
                   }}
-                  // src={PersonIcon}
                   key={i}
-                  width='30'
-                  height='40'
-                  alt=''
-                />
+                >
+                  <Image src={PersonIcon} width='30' height='40' />
+                </motion.div>
               )
             })}
           </div>

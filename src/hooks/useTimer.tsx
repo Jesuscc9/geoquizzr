@@ -7,10 +7,6 @@ export const useTimer = (totalSeconds: number, onFinish?: () => void) => {
 
   const percentage = (100 / totalSeconds) * seconds
 
-  useEffect(() => {
-    console.log({ timerInterval })
-  }, [])
-
   const handleDecrease = (n: number = 1) => {
     setSeconds((prev) => {
       let newVal = prev - Math.abs(n)
@@ -26,7 +22,6 @@ export const useTimer = (totalSeconds: number, onFinish?: () => void) => {
 
   const stop = () => {
     setIsRunning(false)
-    console.log({ timerInterval })
     if (timerInterval !== null) {
       window.clearInterval(timerInterval)
       setTimerInterval(null)
@@ -43,9 +38,7 @@ export const useTimer = (totalSeconds: number, onFinish?: () => void) => {
   useEffect(() => {
     if (!isRunning) return
     if (timerInterval === null) {
-      console.log('se crea el intervalo')
       setTimerInterval(window.setInterval(handleDecrease, 1000))
-      console.log({ timerInterval })
     }
   }, [isRunning])
 

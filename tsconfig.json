@@ -14,11 +14,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
-      "@/images/*": ["./public/assets/images/*"],
-      "@/icons/*": ["./public/assets/images/icons/*"]
-    },
+      "@/images/*": ["../public/assets/images/*"],
+      "@/icons/*": ["../public/assets/images/icons/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

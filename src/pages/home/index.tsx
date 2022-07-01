@@ -1,8 +1,10 @@
 import EarthImage from '@/images/earth3.png'
-import { Button, Navbar } from 'components/UI'
-import React, { FC } from 'react'
-import styles from './styles.module.css'
+import { Button, Footer, Navbar } from 'components/UI'
 import { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import styles from './styles.module.css'
 
 const Home: NextPage = () => {
   return (
@@ -18,15 +20,21 @@ const Home: NextPage = () => {
               DISCOVER YOUR OWN <br /> WORLD!
             </h1>
             <p>Learn information about countries all around the world</p>
-
-              <Button color='#FECD19' className={styles.Hero__button}>
-                START LEARNING!
-              </Button>
-  
+            <Link href='/quizzes/new'>
+              <a>
+                <Button color='#FECD19' className={styles.Hero__button}>
+                  START LEARNING!
+                </Button>
+              </a>
+            </Link>
           </div>
-          {/* <img src={EarthImage} className={styles.Hero__image} /> */}
+          <div className={styles.Hero__image}>
+            <Image src={EarthImage} />
+          </div>
         </div>
       </div>
+
+      <Footer />
     </>
   )
 }

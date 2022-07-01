@@ -1,17 +1,17 @@
 import { CountrySelector } from 'components/forms'
-import { Clues, FinishedRound } from 'components/UI'
+import { Clues, FinishedRound, Map } from 'components/UI'
 import { motion } from 'framer-motion'
 import { useTimer } from 'hooks'
+import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { getQuizz } from 'services'
 import useSWR from 'swr'
 import styles from './styles.module.css'
 
 const TOTAL_SECONDS = 60
 
-export const Quizz: FC = () => {
+const QuizzGame: FC = () => {
   const [showFinishModal, setShowFinishedModal] = useState<boolean>(false)
+  const [isImageQuizzReady, setIsImageQuizzReady] = useState<boolean>(false)
 
   const { seconds, start, percentage, decrement, isRunning, stop } = useTimer(
     TOTAL_SECONDS,
@@ -20,17 +20,34 @@ export const Quizz: FC = () => {
     }
   )
 
-  const { uuid } = useParams()
+  const router = useRouter()
 
-  const { data: country, error } = useSWR(`api/quizzes/${uuid}`, () =>
-    getQuizz(String(uuid))
-  )
+  const {
+    query: { uuid }
+  } = router
 
-  console.log({ country, error })
+  const shouldFetch = typeof uuid !== 'undefined'
+
+  const { data: country, error } = useSWR(shouldFetch && `/api/quizzes/${uuid}`)
+
+  // const { data } = useSWRImmutable(
+  //   shouldFetch && 'isQuizzImageReady',
+  //   () => false
+  // )
 
   useEffect(() => {
-    start()
-  }, [])
+    if (country && isImageQuizzReady) start()
+  }, [country, isImageQuizzReady])
+
+  if (!country) return <div>loader</div>
+
+  const {
+    countries: { capitalInfo }
+  } = country
+
+  const {
+    latlng: [lat, lng]
+  } = JSON.parse(capitalInfo)
 
   return (
     <>
@@ -51,7 +68,7 @@ export const Quizz: FC = () => {
         <h1>What country is this? 🤔</h1>
         <div className={styles.QuizGrid}>
           <div>
-            <img src='https://i.blogs.es/40fecc/googlemaps/450_1000.jpg' />
+            <Map />
           </div>
 
           <div>
@@ -66,3 +83,5 @@ export const Quizz: FC = () => {
     </>
   )
 }
+
+export default QuizzGame

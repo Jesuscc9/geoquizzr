@@ -1,6 +1,6 @@
 import confetti from 'canvas-confetti'
-import React, { FC, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 import Select from 'react-select'
 import useSWR from 'swr'
 
@@ -8,20 +8,19 @@ export const CountrySelector: FC<{
   timerStillRunning: boolean
   onCorrectGuess: () => void
 }> = ({ timerStillRunning, onCorrectGuess }) => {
-  const { data: countries } = useSWR('api/countries')
+  const { data: countries } = useSWR('https://restcountries.com/v3.1/all')
 
-  const { uuid } = useParams()
+  const router = useRouter()
 
-  const { data, error } = useSWR(`api/quizzes/${uuid}`)
+  const {
+    query: { uuid }
+  } = router
+
+  const { data, error } = useSWR(`/api/quizzes/${uuid}`)
 
   if (!data) return <div>loading...</div>
 
   const { country_cca2: countryToGuess } = data
-
-  useEffect(() => {
-    console.log({ countryToGuess: countryToGuess.name.common })
-    console.log({ countryToGuess })
-  }, [countryToGuess])
 
   if (!countries || !countryToGuess) return <div>Loading...</div>
 
@@ -35,7 +34,7 @@ export const CountrySelector: FC<{
   })
 
   const handleCountryChange = (e: any) => {
-    if (e.value === countryToGuess.cca2 && timerStillRunning) {
+    if (e.value === countryToGuess && timerStillRunning) {
       onCorrectGuess()
       confetti()
     }

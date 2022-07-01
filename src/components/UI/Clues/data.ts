@@ -4,12 +4,12 @@ import { PopulationClue } from './PopulationClue'
 
 export const CluesData: iClue[] = [
   {
-    type: 'population',
+    key: 'population',
     component: PopulationClue,
     cost: 3
   },
   {
-    type: 'continent',
+    key: 'continents',
     component: ContinentClue,
     cost: 10
   }
