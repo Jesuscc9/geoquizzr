@@ -1,24 +1,15 @@
 import { CountrySelector } from 'components/forms'
-import { Clues, FinishedRound, Map } from 'components/UI'
-import { motion } from 'framer-motion'
-import { useTimer } from 'hooks'
+import { Clues, FinishedRound, Loader, Map, ProgressBar } from 'components/UI'
+import { useQuizzes, useTimer } from 'hooks'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import useSWR from 'swr'
 import styles from './styles.module.css'
 
-const TOTAL_SECONDS = 60
+const TOTAL_SECONDS = 40
 
 const QuizzGame: FC = () => {
   const [showFinishModal, setShowFinishedModal] = useState<boolean>(false)
-  const [isImageQuizzReady, setIsImageQuizzReady] = useState<boolean>(false)
-
-  const { seconds, start, percentage, decrement, isRunning, stop } = useTimer(
-    TOTAL_SECONDS,
-    () => {
-      setShowFinishedModal(true)
-    }
-  )
 
   const router = useRouter()
 
@@ -28,41 +19,49 @@ const QuizzGame: FC = () => {
 
   const shouldFetch = typeof uuid !== 'undefined'
 
-  const { data: country, error } = useSWR(shouldFetch && `/api/quizzes/${uuid}`)
+  const { data: quizz } = useSWR(shouldFetch && `/api/quizzes/${uuid}`)
 
-  // const { data } = useSWRImmutable(
-  //   shouldFetch && 'isQuizzImageReady',
-  //   () => false
-  // )
+  const { update } = useQuizzes()
+
+  const { seconds, start, percentage, decrement, isRunning, stop } = useTimer(
+    TOTAL_SECONDS,
+    () => {
+      setShowFinishedModal(true)
+      if (seconds === 1) {
+        update({
+          uuid: String(uuid),
+          body: {
+            consumed_seconds: TOTAL_SECONDS,
+            ended_at: new Date(),
+            solved: false
+          }
+        })
+        return
+      }
+      update({
+        uuid: String(uuid),
+        body: {
+          consumed_seconds: TOTAL_SECONDS - seconds,
+          ended_at: new Date(),
+          solved: true
+        }
+      })
+    }
+  )
 
   useEffect(() => {
-    if (country && isImageQuizzReady) start()
-  }, [country, isImageQuizzReady])
+    if (quizz) start()
+  }, [quizz])
 
-  if (!country) return <div>loader</div>
+  if (!quizz) return <Loader />
 
-  const {
-    countries: { capitalInfo }
-  } = country
-
-  const {
-    latlng: [lat, lng]
-  } = JSON.parse(capitalInfo)
+  if (quizz.solved) return <div>este quizz ya fue resuelto</div>
 
   return (
     <>
       {showFinishModal && <FinishedRound />}
 
-      <p>{seconds}</p>
-      <motion.div
-        layout
-        style={{
-          width: `${percentage}%`,
-          height: 20,
-          backgroundColor: 'red',
-          borderRadius: '0.4rem'
-        }}
-      ></motion.div>
+      <ProgressBar progress={percentage} text={seconds} />
 
       <div>
         <h1>What country is this? 🤔</h1>

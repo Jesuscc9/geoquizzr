@@ -4,7 +4,8 @@ import { supabase } from 'services'
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     method,
-    query: { uuid }
+    query: { uuid },
+    body
   } = req
 
   const token = req.headers.token
@@ -29,13 +30,34 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).json(data)
     } catch (e) {
-      return res.status(200).json('Something went wrong')
+      return res.status(400).json('Something went wrong')
+    }
+  }
+
+  const handleUpdate = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('quizzes')
+        .update(body)
+        .eq('uuid', uuid)
+
+      if (error) {
+        return res
+          .status(Number(error.code) | 200)
+          .json(error.message || 'Something went wrong')
+      }
+
+      return res.status(200).json(data)
+    } catch (e) {
+      return res.status(400).json('Something went wrong')
     }
   }
 
   switch (method) {
     case 'GET':
       return handleGet()
+    case 'PUT':
+      return handleUpdate()
     default:
       return res.status(404).json('Method not found')
   }

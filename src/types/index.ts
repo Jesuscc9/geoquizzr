@@ -11,7 +11,7 @@ export interface iClue {
   key:
     | 'population'
     | 'continents'
-    | 'capita'
+    | 'capital'
     | 'capitalInfo'
     | 'car'
     | 'cca2'
@@ -29,6 +29,12 @@ export interface iNewQuizz {
   total_seconds: number
 }
 
+export interface iUpdateQuizz {
+  solved: boolean
+  consumed_seconds: number
+  ended_at: Date
+}
+
 export interface iQuizz {
   id: number
   uuid: string
@@ -38,11 +44,5 @@ export interface iQuizz {
   solved: boolean
   created_by: string
   created_at: Date
-  ended_at: Date
-}
-
-export interface iFinishedQuizz {
-  consumed_seconds: number
-  solved: boolean
   ended_at: Date
 }

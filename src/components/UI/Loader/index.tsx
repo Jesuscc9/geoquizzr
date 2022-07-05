@@ -1,13 +1,18 @@
-import LoaderBg from 'assets/loader-bg.svg'
-import LoaderImg from 'assets/loader.png'
+import LoaderBg from '@/images/loader-bg.svg'
+import LoaderImg from '@/images/loader.png'
+import Image from 'next/image'
 import React, { FC } from 'react'
 import styles from './styles.module.css'
 
 export const Loader: FC = () => {
   return (
     <div className={styles.Loader}>
-      {/* <img src={LoaderImg} className={styles.LoaderCircle} /> */}
-      {/* <img src={LoaderBg} className={styles.LoaderBg} /> */}
+      <div className={styles.LoaderCircle}>
+        <Image src={LoaderImg} layout='responsive' />
+      </div>
+      <div className={styles.LoaderBg}>
+        <Image src={LoaderBg} layout='fixed' width='92' />
+      </div>
     </div>
   )
 }

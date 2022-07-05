@@ -28,23 +28,24 @@ export default async function handler(
   const handlePost = async () => {
     const newQuizz: iNewQuizz = body
 
+    const MINIMUM_COUNTRY_POPULATION = 25000000
+
     try {
       // Select a random cca2 identifier
-      const { data: randomXdCoimtru, error: selectError } = await supabase
+      const {
+        data: { cca2: randomCountry },
+        error: selectError
+      } = await supabase
         .from('random_countries')
         .select('cca2')
-        .gt('population', 2500000)
+        .gt('population', MINIMUM_COUNTRY_POPULATION)
         .limit(1)
         .single()
-
-      const randomCountry = randomXdCoimtru.cca2
 
       if (selectError)
         return res.status(Number(selectError.code)).json(selectError)
 
       // Lookup for a random static street view location on the country
-
-      // Get random location in the country
 
       const getRandomLocation = async () => {
         const request = await fetch(

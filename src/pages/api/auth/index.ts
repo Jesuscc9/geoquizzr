@@ -1,5 +1,10 @@
+import { User } from '@supabase/gotrue-js'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { supabase } from 'services'
+
+const extractUser = (rawUser: User | null) => {
+  return rawUser?.identities?.[0].identity_data
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,8 +17,11 @@ export default async function handler(
   supabase.auth.setAuth(String(token))
 
   const handleGet = async () => {
-    const user: any = supabase.auth.session()?.access_token?.user_metadata
-    return res.json(user)
+    const token = supabase.auth.session()?.access_token ?? ''
+
+    const { user } = await supabase.auth.api.getUser(token)
+
+    return res.json(extractUser(user))
   }
 
   const handlePost = () => {}

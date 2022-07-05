@@ -1,0 +1,84 @@
+import PersonIcon from '@/images/person.png'
+import { ClueWrapper } from 'components/UI'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import React, { FC, useState } from 'react'
+import useSWR from 'swr'
+import { iClue } from 'types'
+import styles from './styles.module.css'
+
+interface iProps {
+  data: iClue
+  decrement: (n: number) => void
+}
+
+export const CapitalClue: FC<iProps> = ({ data, decrement }) => {
+  const [revealClue, setRevealClue] = useState<boolean>(false)
+
+  const router = useRouter()
+
+  const {
+    query: { uuid }
+  } = router
+
+  const {
+    data: { countries: countryData },
+    error
+  } = useSWR(`/api/quizzes/${uuid}`)
+
+  if (!countryData) return <div>cargando</div>
+
+  const { capital } = countryData
+
+  const handleClueClick = () => {
+    if (revealClue === true) return
+    setRevealClue(true)
+    decrement(data.cost)
+  }
+
+  return (
+    <>
+      <div className={styles.PopulationClue} onClick={handleClueClick}>
+        {revealClue ? (
+          <p>The capital is {capital}</p>
+        ) : (
+          <>
+            <h3>SHOW CAPITAL</h3>
+            <p>-({data.cost} seconds)</p>
+          </>
+        )}
+      </div>
+
+      {revealClue && (
+        <ClueWrapper>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              gap: '2rem'
+            }}
+          >
+            {[1, 2, 3, 4, 5].map((e, i) => {
+              return (
+                <motion.div
+                  initial={{ opacity: 0, scale: 1 }}
+                  animate={{ opacity: 1, scale: 1.2 }}
+                  transition={{
+                    delay: 0.25 * e,
+                    type: 'spring',
+                    bounce: 0.4
+                  }}
+                  key={i}
+                >
+                  <Image src={PersonIcon} width='30' height='40' />
+                </motion.div>
+              )
+            })}
+          </div>
+          <h2 style={{ color: 'black', textAlign: 'center' }}>{capital}</h2>
+        </ClueWrapper>
+      )}
+    </>
+  )
+}
