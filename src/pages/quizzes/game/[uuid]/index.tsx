@@ -3,7 +3,7 @@ import { Clues, FinishedRound, Loader, Map, ProgressBar } from 'components/UI'
 import { useQuizzes, useTimer } from 'hooks'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
-import useSWR from 'swr'
+import useInmutableSwr from 'swr/immutable'
 import styles from './styles.module.css'
 
 const TOTAL_SECONDS = 40
@@ -19,7 +19,7 @@ const QuizzGame: FC = () => {
 
   const shouldFetch = typeof uuid !== 'undefined'
 
-  const { data: quizz } = useSWR(shouldFetch && `/api/quizzes/${uuid}`)
+  const { data: quizz } = useInmutableSwr(shouldFetch && `/api/quizzes/${uuid}`)
 
   const { update } = useQuizzes()
 
@@ -55,7 +55,13 @@ const QuizzGame: FC = () => {
 
   if (!quizz) return <Loader />
 
-  if (quizz.solved) return <div>este quizz ya fue resuelto</div>
+  if (quizz.consumed_seconds)
+    return (
+      <div>
+        <h3>This quizz has been solved</h3>
+        <p>{JSON.stringify(quizz, null, 4)}</p>
+      </div>
+    )
 
   return (
     <>
