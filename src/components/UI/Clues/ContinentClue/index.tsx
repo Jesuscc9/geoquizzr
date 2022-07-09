@@ -22,16 +22,15 @@ export const ContinentClue: FC<iProps> = ({ data, decrement }) => {
     query: { uuid }
   } = router
 
-  const {
-    data: { countries: countryData },
-    error
-  } = useSWR(`/api/quizzes/${uuid}`)
+  const { data: quizz } = useSWR(`/api/quizzes/${uuid}`)
 
-  if (!countryData) return <div>cargando</div>
+  if (!quizz) return <div>cargando</div>
+
+  const currentRound = quizz.rounds.at(-1)
 
   const {
     continents: [continent]
-  } = countryData
+  } = currentRound.country
 
   const handleClueClick = () => {
     if (revealClue === true) return

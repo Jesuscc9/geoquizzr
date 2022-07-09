@@ -1,7 +1,7 @@
 import { Button, Modal } from 'components/UI'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
-import { useSWRConfig } from 'swr'
 
 export const FinishedRound: FC = () => {
   const router = useRouter()
@@ -10,18 +10,15 @@ export const FinishedRound: FC = () => {
     query: { uuid }
   } = router
 
-  const { mutate } = useSWRConfig()
-
   return (
     <Modal show={true} onCloseModal={() => ''}>
       <div style={{ padding: '2rem' }}>
         <p style={{ color: 'black' }}>has acabo la ronda xd</p>
-        <Button onClick={() => {
-          router.push({
-            pathname: '/quizzes/[uuid]',
-            query: { uuid }
-          })
-        }} >CONTINUE</Button>
+        <Link href={{ pathname: '/quizzes/[uuid]', query: { uuid } }}>
+          <a>
+            <Button>CONTINUE</Button>
+          </a>
+        </Link>
       </div>
     </Modal>
   )

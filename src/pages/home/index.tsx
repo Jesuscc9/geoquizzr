@@ -1,6 +1,7 @@
 import EarthImage from '@/images/earth3.png'
 import { Button, Footer, Navbar } from 'components/UI'
 import { NextPage } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -9,6 +10,9 @@ import styles from './styles.module.css'
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Home</title>
+      </Head>
       <div id='BackgroundDecoration' key='home'></div>
       <div className={styles.BackgroundCity}></div>
       <Navbar />

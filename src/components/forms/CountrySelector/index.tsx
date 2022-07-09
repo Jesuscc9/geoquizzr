@@ -16,11 +16,15 @@ export const CountrySelector: FC<{
     query: { uuid }
   } = router
 
-  const { data, error } = useSWR(`/api/quizzes/${uuid}`)
+  const { data: quizz } = useSWR(`/api/quizzes/${uuid}`)
 
-  if (!data) return <div>loading...</div>
+  if (!quizz) return <div>loading...</div>
 
-  const { country_cca2: countryToGuess } = data
+  const currentRound = quizz.rounds.at(-1)
+
+  console.log({ currentRound })
+
+  const { cca2: countryToGuess } = currentRound.country
 
   if (!countries || !countryToGuess) return <div>Loading...</div>
 

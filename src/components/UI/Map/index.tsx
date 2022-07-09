@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import useSWR from 'swr'
 
-const key = 'AIzaSyBZdsJUUIKwzsQU-TXr3asOk2gSdRRAS5s'
+const key = 'AIzaSyCGcxn8bTwWyW7Bwg4KRdgkpIlqTfL9Vds'
 
 export const Map: FC = () => {
   const router = useRouter()
@@ -11,9 +11,13 @@ export const Map: FC = () => {
     query: { uuid }
   } = router
 
-  const { data: country } = useSWR(`/api/quizzes/${uuid}`)
+  const { data: quizz, error } = useSWR(`/api/quizzes/${uuid}`)
 
-  const [lat, lng] = country.staticImage
+  const currentRound = quizz.rounds.at(-1)
+
+  if (error) return <div>we have an error xd</div>
+
+  const [lat, lng] = currentRound.static_image_latlng
 
   return (
     <div>
