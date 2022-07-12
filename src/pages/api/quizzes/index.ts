@@ -27,8 +27,6 @@ export default async function handler(
   const handlePost = async () => {
     const newQuizz: iNewQuizz = body
 
-    console.log({ newQuizz })
-
     try {
       const { error: insertError, data: createdQuizz } = await supabase
         .from('quizzes')
@@ -40,19 +38,15 @@ export default async function handler(
       if (insertError)
         return res.status(Number(insertError?.code || 400)).json(insertError)
 
-      const id = createdQuizz?.id ?? ''
-
       // Create the initial round
-      await createNewRound(id)
+      await createNewRound(createdQuizz.id)
 
       const { data, error } = await supabase
         .from('quizzes')
         .select(
-          `
-            *, rounds (
-              *
-            )
-          `
+          `*, rounds (
+          *, country ( * ), guess ( * )
+          )`
         )
         .order('id', { ascending: false })
         .limit(1)
@@ -62,7 +56,6 @@ export default async function handler(
 
       return res.status(200).json(data)
     } catch (e) {
-      console.log({ e })
       return res.status(500).json({ error: 'Internal server error' })
     }
   }

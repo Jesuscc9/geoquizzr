@@ -103,3 +103,22 @@ export const createNewRound = async (quizzId: string) => {
     }
   })
 }
+
+export const selectQuizz = (field: string, value: string) => {
+  return new Promise((resolve, reject) => {
+    supabase
+      .from('quizzes')
+      .select(
+        `*, rounds (
+          *, country ( * ), guess ( * )
+      )`
+      )
+      .eq(field, value)
+      .single()
+      .then(({ data, error }) => {
+        if (error) return reject(error)
+
+        return resolve(data)
+      })
+  })
+}

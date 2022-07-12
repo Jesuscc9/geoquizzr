@@ -8,7 +8,7 @@ export const ClueWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(false)
-    }, 3200)
+    }, 10000)
   }, [])
 
   return (

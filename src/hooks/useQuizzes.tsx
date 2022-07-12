@@ -16,12 +16,39 @@ interface iUpdateProps {
   onSuccess?: (newQuizz: iQuizz) => void
 }
 
+interface iNewRound {
+  latlng?: number[]
+  country_cca2?: string
+  timed_out?: boolean
+  round_id: number
+}
+
+interface iCreateGuess {
+  body: iNewRound
+  quizzId: string
+  quizzUuid: string
+  onSuccess: () => void
+}
+
+interface iCreateRound {
+  quizzUuid: string
+  onSuccess: () => void
+}
+
 export const useQuizzes = () => {
   const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false)
   const [errorCreate, setErrorCreate] = useState<null | string>(null)
 
   const [isLoadingUpdate, setIsLoadingUpdate] = useState<boolean>(false)
   const [errorUpdate, setErrorUpdate] = useState<null | string>(null)
+
+  const [isLoadingCreateGuess, setIsLoadingCreateGuess] =
+    useState<boolean>(false)
+  const [errorGuess, setErrorGuess] = useState<string | undefined>()
+
+  const [isLoadingCreateRound, setIsLoadingCreateRound] =
+    useState<boolean>(false)
+  const [errorRound, setErrorRound] = useState<string | undefined>()
 
   const { data: quizzes, error } = useSWR(SWR_KEY)
 
@@ -51,6 +78,41 @@ export const useQuizzes = () => {
     }
   }
 
+  const createGuess = async ({
+    body,
+    onSuccess,
+    quizzId,
+    quizzUuid
+  }: iCreateGuess) => {
+    setIsLoadingCreateGuess(true)
+
+    try {
+      await fetcher(
+        `${SWR_KEY}/${quizzUuid}/guess?quizz_id=${quizzId}`,
+        'POST',
+        body
+      )
+      onSuccess()
+    } catch (e: any) {
+      setErrorGuess(e)
+    } finally {
+      setIsLoadingCreateGuess(false)
+    }
+  }
+
+  const createRound = async ({ quizzUuid, onSuccess }: iCreateRound) => {
+    setIsLoadingCreateRound(true)
+
+    try {
+      await fetcher(`${SWR_KEY}/${quizzUuid}/rounds`, 'POST')
+      onSuccess()
+    } catch (e: any) {
+      setErrorRound(e)
+    } finally {
+      setIsLoadingCreateRound(false)
+    }
+  }
+
   return {
     quizzes,
     isLoading: !quizzes && !error,
@@ -60,6 +122,12 @@ export const useQuizzes = () => {
     errorCreate,
     update,
     isLoadingUpdate,
-    errorUpdate
+    errorUpdate,
+    createGuess,
+    isLoadingCreateGuess,
+    errorGuess,
+    isLoadingCreateRound,
+    errorRound,
+    createRound
   }
 }

@@ -22,8 +22,6 @@ export const CountrySelector: FC<{
 
   const currentRound = quizz.rounds.at(-1)
 
-  console.log({ currentRound })
-
   const { cca2: countryToGuess } = currentRound.country
 
   if (!countries || !countryToGuess) return <div>Loading...</div>

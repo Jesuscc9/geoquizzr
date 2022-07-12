@@ -46,3 +46,23 @@ export interface iQuizz {
   created_at: Date
   ended_at: Date
 }
+
+export interface iNewGuess {
+  round_id: number
+  latlng: number[]
+  country_cca2: string
+  timed_out: boolean
+  consumed_seconds: number
+  score: number
+}
+
+export interface iGuess {
+  id: number
+  round_id: number
+  latlng: number[]
+  country_cca2: string
+  timed_out: boolean
+  consumed_seconds: number
+  score: number
+  created_at: Date
+}

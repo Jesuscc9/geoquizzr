@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 
-export const useTimer = (totalSeconds: number, onFinish?: () => void) => {
+interface iProps {
+  totalSeconds: number
+  onFinish?: (seconds: number) => void
+}
+
+export const useTimer = ({ totalSeconds, onFinish }: iProps) => {
   const [seconds, setSeconds] = useState<number>(totalSeconds)
   const [isRunning, setIsRunning] = useState<boolean>(false)
 
@@ -17,11 +22,12 @@ export const useTimer = (totalSeconds: number, onFinish?: () => void) => {
 
   const start = () => {
     setIsRunning(true)
+    setSeconds(totalSeconds)
   }
 
   const stop = () => {
     setIsRunning(false)
-    if (typeof onFinish !== 'undefined') onFinish()
+    if (typeof onFinish !== 'undefined') onFinish(seconds)
   }
 
   const decrement = (n: number) => {
