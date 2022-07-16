@@ -1,4 +1,4 @@
-import confetti from 'canvas-confetti'
+import { useQuizzes } from 'hooks'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import Select from 'react-select'
@@ -16,7 +16,9 @@ export const CountrySelector: FC<{
     query: { uuid }
   } = router
 
-  const { data: quizz } = useSWR(`/api/quizzes/${uuid}`)
+  const { data: quizz, mutate } = useSWR(`/api/quizzes/${uuid}`)
+
+  const { createGuess } = useQuizzes()
 
   if (!quizz) return <div>loading...</div>
 
@@ -36,10 +38,23 @@ export const CountrySelector: FC<{
   })
 
   const handleCountryChange = (e: any) => {
-    if (e.value === countryToGuess && timerStillRunning) {
-      onCorrectGuess()
-      confetti()
-    }
+    if (!timerStillRunning) return
+
+    const isCorrect = e.value === countryToGuess
+
+    createGuess({
+      body: {
+        timed_out: false,
+        round_id: currentRound.id,
+        is_correct: isCorrect
+      },
+      quizzId: quizz.id,
+      quizzUuid: quizz.uuid,
+      onSuccess: () => {
+        if (isCorrect) onCorrectGuess()
+        mutate()
+      }
+    })
   }
 
   return (

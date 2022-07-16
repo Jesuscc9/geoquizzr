@@ -23,10 +23,19 @@ interface iNewRound {
   round_id: number
 }
 
+interface iNewGuess {
+  latlng?: number[]
+  country_cca2?: string
+  timed_out?: boolean
+  round_id: number
+  is_correct: boolean
+}
+
 interface iCreateGuess {
-  body: iNewRound
+  body: iNewGuess
   quizzId: string
   quizzUuid: string
+
   onSuccess: () => void
 }
 

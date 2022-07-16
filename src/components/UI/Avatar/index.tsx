@@ -14,6 +14,7 @@ export const Avatar: FC<{ size?: number; src: string | null }> = ({
       width={size}
       height={size}
       className={styles.Avatar}
+      referrerPolicy='no-referrer'
     />
   )
 }
