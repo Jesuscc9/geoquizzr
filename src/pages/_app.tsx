@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import React from 'react'
 import { supabase } from 'services'
 import { SWRConfig } from 'swr'
@@ -34,8 +35,19 @@ export const fetcher = async (
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SWRConfig value={{ fetcher }}>
-      <Component {...pageProps} />
-    </SWRConfig>
+    <>
+      <Head>
+        <title>Geoquizzr</title>
+        <meta
+          name='description'
+          content='Gequizzr. The unique online platform to improve your knowledge about geography'
+        />
+        <link rel='icon' href='/assets/images/favicon.svg' />
+      </Head>
+
+      <SWRConfig value={{ fetcher }}>
+        <Component {...pageProps} />
+      </SWRConfig>
+    </>
   )
 }

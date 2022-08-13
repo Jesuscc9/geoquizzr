@@ -43,6 +43,8 @@ export interface iQuizz {
   consumed_seconds?: number
   solved: boolean
   created_by: string
+  total_rounds: number
+  rounds: number
   created_at: Date
   ended_at: Date
 }

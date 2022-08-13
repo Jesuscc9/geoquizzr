@@ -1,4 +1,5 @@
 import { supabase } from 'services'
+import { iQuizz } from 'types'
 
 const key = 'AIzaSyCGcxn8bTwWyW7Bwg4KRdgkpIlqTfL9Vds'
 
@@ -63,17 +64,20 @@ export const createNewRound = async (quizzId: string) => {
         const { lat, lng } = await getRandomLocation()
 
         const request = await fetch(
-          `https://maps.googleapis.com/maps/api/streetview/metadata?size=600x400&radius=200&location=${lat},${lng}&fov=80&heading=70&pitch=0&key=${key}`
+          `https://maps.googleapis.com/maps/api/streetview/metadata?size=600x400&radius=200&location=${lat},${lng}&key=${key}`
         )
 
         const location = await request.json()
+
+        console.log({ location })
+        console.log({ lat: location.lat, lng: location.lng })
 
         if (location.status !== 'OK') {
           validLocationTriesWithSameCountry++
           return await isValidLocation()
         }
 
-        return { lat, lng }
+        return { lat: location.location.lat, lng: location.location.lng }
       }
 
       const { lat, lng } = await isValidLocation()
@@ -104,7 +108,7 @@ export const createNewRound = async (quizzId: string) => {
   })
 }
 
-export const selectQuizz = (field: string, value: string) => {
+export const selectQuizz = (field: string, value: string): Promise<iQuizz> => {
   return new Promise((resolve, reject) => {
     supabase
       .from('quizzes')

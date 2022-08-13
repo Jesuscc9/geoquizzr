@@ -1,5 +1,6 @@
-import WarningIcon from 'assets/warning.svg'
+import WarningIcon from '@/images/warning.svg'
 import { AnimatePresence, motion } from 'framer-motion'
+import Image from 'next/link'
 import React, { FC } from 'react'
 import styles from './styles.module.css'
 
@@ -18,7 +19,7 @@ export const FormNotice: FC<iProps> = ({ variant, message }) => {
         exit={{ opacity: 1 }}
         key='form-notice'
       >
-        {/* <img src={WarningIcon} width='24' height='24' /> */}
+        <Image src={WarningIcon} width='24' height='24' />
         <p>{message}</p>
       </motion.div>
     </AnimatePresence>

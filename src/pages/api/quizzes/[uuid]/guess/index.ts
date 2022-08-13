@@ -20,14 +20,10 @@ export default async function handler(
     const newGuess: iNewGuess = body
 
     try {
-      const quizz: any = await selectQuizz('uuid', String(uuid))
+      let quizz: any = await selectQuizz('uuid', String(uuid))
 
-      if (quizz.rounds.length >= quizz.total_rounds) {
-        await supabase
-          .from('quizzes')
-          .update({ finished: true })
-          .match({ id: quizzId })
-        return res.status(200).json('Max number of rounds')
+      if (quizz.finished === true) {
+        return res.status(200).json('Cannot GUESS on an already finished quizz')
       }
 
       const { error: insertError } = await supabase
@@ -44,12 +40,12 @@ export default async function handler(
         .from('quizzes')
         .select(
           `
-            *, rounds (
-              *, guess (
-                *
-              )
+        *, rounds (
+          *, guess (
+            *
             )
-          `
+            )
+            `
         )
         .eq('id', quizzId)
         .limit(1)
@@ -57,8 +53,24 @@ export default async function handler(
 
       if (error) return res.status(Number(error?.code) || 400).json(error)
 
+      quizz = await selectQuizz('uuid', String(uuid))
+      const lastRound = quizz.rounds[quizz.rounds.length - 1]
+
+      if (
+        quizz.rounds.length >= quizz.total_rounds &&
+        lastRound?.guess?.length &&
+        lastRound?.guess?.length > 0
+      ) {
+        await supabase
+          .from('quizzes')
+          .update({ finished: true })
+          .match({ id: quizzId })
+        return res.status(200).json('Max number of rounds')
+      }
+
       return res.status(200).json(data)
     } catch (e) {
+      console.log({ e })
       return res.status(500).json({ error: 'Internal server error' })
     }
   }

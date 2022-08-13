@@ -64,7 +64,10 @@ const QuizzGame: FC = () => {
   }
 
   useEffect(() => {
-    if (quizz && quizz.finished === false) start()
+    console.log({ quizz })
+    if (quizz && quizz.finished === false) {
+      start()
+    }
   }, [quizz])
 
   useEffect(() => {
@@ -77,49 +80,54 @@ const QuizzGame: FC = () => {
 
   const isQuizzFinished = quizz.finished
 
+  console.log({ currentRound })
+
   const isRoundFinished = currentRound.guess.length > 0
 
   const currentGuess = currentRound.guess?.[0]
 
   return (
     <>
-      {isQuizzFinished ? (
+      {isRoundFinished ? (
         <div>
-          <h1>El quizz esta acabade</h1>
+          <h3>
+            Ronda finalizada este es el resultado <br />
+          </h3>
+          {JSON.stringify(currentGuess, null, 2)}
+          <br />
+          <br />
+
+          {isQuizzFinished ? (
+            <Button
+              onClick={() => {
+                alert('resumen xd')
+              }}
+            >
+              VIEW SUMMARY
+            </Button>
+          ) : (
+            <Button onClick={handleNewRound}>CONTINUAR</Button>
+          )}
         </div>
       ) : (
         <>
-          {isRoundFinished ? (
-            <div>
-              <h3>
-                Ronda finalizada este es el resultado <br />
-              </h3>
-              {JSON.stringify(currentGuess, null, 2)}
-              <br />
-              <br />
-              <Button onClick={handleNewRound}>CONTINUAR</Button>
-            </div>
-          ) : (
-            <>
-              <ProgressBar progress={percentage} text={seconds} />
+          <ProgressBar progress={percentage} text={seconds} />
+          <div>
+            <h1>What country is this? 🤔</h1>
+            <div className={styles.QuizGrid}>
               <div>
-                <h1>What country is this? 🤔</h1>
-                <div className={styles.QuizGrid}>
-                  <div>
-                    <Map />
-                  </div>
-
-                  <div>
-                    <CountrySelector
-                      timerStillRunning={isRunning}
-                      onCorrectGuess={stop}
-                    />
-                  </div>
-                  <Clues decrement={decrement} />
-                </div>
+                <Map />
               </div>
-            </>
-          )}
+
+              <div>
+                <CountrySelector
+                  timerStillRunning={isRunning}
+                  onCorrectGuess={stop}
+                />
+              </div>
+              <Clues decrement={decrement} />
+            </div>
+          </div>
         </>
       )}
     </>
