@@ -1,22 +1,24 @@
-import confetti from 'canvas-confetti'
-import { CountrySelector } from 'components/forms'
-import { Button, Clues, Loader, Map, ProgressBar } from 'components/UI'
-import { useQuizzes, useTimer } from 'hooks'
-import { useRouter } from 'next/router'
-import React, { FC, useEffect } from 'react'
-import useInmutableSWR from 'swr/immutable'
-import styles from './styles.module.css'
+import confetti from "canvas-confetti"
+import { CountrySelector } from "components/forms"
+import { Button, Clues, Loader, Map, ProgressBar } from "components/UI"
+import { useQuizzes, useTimer } from "hooks"
+import { useRouter } from "next/router"
+import React, { FC, useEffect, useState } from "react"
+import useInmutableSWR from "swr/immutable"
+import styles from "./styles.module.css"
 
 const TOTAL_SECONDS = 40
 
 const QuizzGame: FC = () => {
   const router = useRouter()
 
+  const [showSummary, setShowSummary] = useState(false)
+
   const {
     query: { uuid }
   } = router
 
-  const shouldFetch = typeof uuid !== 'undefined'
+  const shouldFetch = typeof uuid !== "undefined"
 
   const {
     data: quizz,
@@ -46,9 +48,7 @@ const QuizzGame: FC = () => {
           },
           quizzId: quizz.id,
           quizzUuid: quizz.uuid,
-          onSuccess: () => {
-            mutate()
-          }
+          onSuccess: mutate
         })
       }
     }
@@ -80,8 +80,6 @@ const QuizzGame: FC = () => {
 
   const isQuizzFinished = quizz.finished
 
-  console.log({ currentRound })
-
   const isRoundFinished = currentRound.guess.length > 0
 
   const currentGuess = currentRound.guess?.[0]
@@ -97,10 +95,12 @@ const QuizzGame: FC = () => {
           <br />
           <br />
 
+          {showSummary && JSON.stringify(quizz)}
+
           {isQuizzFinished ? (
             <Button
               onClick={() => {
-                alert('resumen xd')
+                setShowSummary(true)
               }}
             >
               VIEW SUMMARY

@@ -5,8 +5,9 @@
   max-height: 100vh;
   top: 0px;
   left: 0px;
-  position: absolute;
+  position: fixed;
   background-color: black;
+  z-index: 999;
 }
 
 .Clue {
@@ -18,4 +19,5 @@
   background-color: white;
   transform: translateY(-50%);
   padding: 3rem;
+  z-index: 1000;
 }
