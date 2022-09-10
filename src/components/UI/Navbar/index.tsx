@@ -12,12 +12,12 @@ export const Navbar: FC = () => {
 
   return (
     <nav className={styles.Navbar}>
-      <Link href='/'>
+      <Link href="/">
         <a>
-          <Image src={Logo} width='132' className={styles.Navbar__logo} />
+          <Image src={Logo} width="132" className={styles.Navbar__logo} />
           <Image
             src={MobileLogo}
-            width='28'
+            width="28"
             className={styles['Navbar__mobile-logo']}
           />
         </a>
@@ -30,15 +30,15 @@ export const Navbar: FC = () => {
         </div>
       ) : (
         <div className={styles['Navbar__auth-buttons']}>
-          <Link href='/signup'>
+          <Link href="/signup">
             <a>
               <Button>signup</Button>
             </a>
           </Link>
 
-          <Link href='/login'>
+          <Link href="/login">
             <a>
-              <Button variant='outline'>login</Button>
+              <Button variant="outline">login</Button>
             </a>
           </Link>
         </div>

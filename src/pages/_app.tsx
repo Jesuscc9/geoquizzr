@@ -39,10 +39,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Geoquizzr</title>
         <meta
-          name='description'
-          content='Gequizzr. The unique online platform to improve your knowledge about geography'
+          name="description"
+          content="Gequizzr. The unique online platform to improve your knowledge about geography"
         />
-        <link rel='icon' href='/assets/images/favicon.svg' />
+        <link rel="icon" href="/assets/images/favicon.svg" />
       </Head>
 
       <SWRConfig value={{ fetcher }}>

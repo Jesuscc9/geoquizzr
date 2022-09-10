@@ -30,23 +30,23 @@ export const SignupForm: FC = () => {
       <h2>Create Account</h2>
       <br />
       {signupError && !isLoading && (
-        <FormNotice variant='error' message={signupError} />
+        <FormNotice variant="error" message={signupError} />
       )}
       <br />
       <motion.div layout>
         <InputText
-          name='email'
-          placeholder='email@example.com'
-          label='Email'
+          name="email"
+          placeholder="email@example.com"
+          label="Email"
           onChange={handleChange}
         />
         <br />
         <br />
         <InputText
-          name='password'
-          label='Password'
-          type='password'
-          placeholder='******'
+          name="password"
+          label="Password"
+          type="password"
+          placeholder="******"
           onChange={handleChange}
         />
       </motion.div>
@@ -58,7 +58,7 @@ export const SignupForm: FC = () => {
           <p>Or Sign Up with</p>
           <div></div>
         </div>
-        <Button variant='outline' type='button' onClick={loginWithGoogle}>
+        <Button variant="outline" type="button" onClick={loginWithGoogle}>
           GOOGLE
         </Button>
       </motion.div>

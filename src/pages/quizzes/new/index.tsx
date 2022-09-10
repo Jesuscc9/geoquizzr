@@ -17,7 +17,7 @@ const NewQuizz: FC = () => {
 
   return (
     <>
-      <Navbar key='navbar' />
+      <Navbar key="navbar" />
       <Button loading={isLoadingCreate} onClick={handleCreateQuizz}>
         CREATE QUIZZ 🌎
       </Button>

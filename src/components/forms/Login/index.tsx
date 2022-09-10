@@ -30,23 +30,23 @@ export const LoginForm: FC = () => {
       <h2>Log In</h2>
       <br />
       {loginError && !isLoading && (
-        <FormNotice variant='error' message={loginError} />
+        <FormNotice variant="error" message={loginError} />
       )}
       <br />
       <motion.div layout>
         <InputText
-          name='email'
-          placeholder='email@example.com'
-          label='Email'
+          name="email"
+          placeholder="email@example.com"
+          label="Email"
           onChange={handleChange}
         />
         <br />
         <br />
         <InputText
-          name='password'
-          label='Password'
-          placeholder='******'
-          type='password'
+          name="password"
+          label="Password"
+          placeholder="******"
+          type="password"
           onChange={handleChange}
         />
       </motion.div>
@@ -59,9 +59,9 @@ export const LoginForm: FC = () => {
           <div></div>
         </div>
         <Button
-          variant='outline'
+          variant="outline"
           loading={isLoading}
-          type='button'
+          type="button"
           onClick={loginWithGoogle}
         >
           GOOGLE

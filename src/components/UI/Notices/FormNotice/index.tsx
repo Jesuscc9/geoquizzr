@@ -17,9 +17,9 @@ export const FormNotice: FC<iProps> = ({ variant, message }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 1 }}
-        key='form-notice'
+        key="form-notice"
       >
-        <Image src={WarningIcon} width='24' height='24' />
+        <Image src={WarningIcon} width="24" height="24" />
         <p>{message}</p>
       </motion.div>
     </AnimatePresence>

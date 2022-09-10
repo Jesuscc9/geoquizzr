@@ -1,7 +1,7 @@
 import { fetcher } from 'pages/_app'
 import { useState } from 'react'
 import useSWR from 'swr'
-import { iNewQuizz, iQuizz, iUpdateQuizz } from 'types'
+import { iNewGuess, iNewQuizz, iQuizz, iUpdateQuizz } from 'types'
 
 const SWR_KEY = '/api/quizzes'
 
@@ -16,26 +16,10 @@ interface iUpdateProps {
   onSuccess?: (newQuizz: iQuizz) => void
 }
 
-interface iNewRound {
-  latlng?: number[]
-  country_cca2?: string
-  timed_out?: boolean
-  round_id: number
-}
-
-interface iNewGuess {
-  latlng?: number[]
-  country_cca2?: string
-  timed_out?: boolean
-  round_id: number
-  is_correct: boolean
-}
-
 interface iCreateGuess {
   body: iNewGuess
   quizzId: string
   quizzUuid: string
-
   onSuccess: () => void
 }
 

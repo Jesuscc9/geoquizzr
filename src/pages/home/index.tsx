@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <div id='BackgroundDecoration' key='home'></div>
+      <div id="BackgroundDecoration" key="home"></div>
       <div className={styles.BackgroundCity}></div>
       <Navbar />
 
@@ -24,9 +24,9 @@ const Home: NextPage = () => {
               DISCOVER YOUR OWN <br /> WORLD!
             </h1>
             <p>Learn information about countries all around the world</p>
-            <Link href='/quizzes/new'>
+            <Link href="/quizzes/new">
               <a>
-                <Button color='#FECD19' className={styles.Hero__button}>
+                <Button color="#FECD19" className={styles.Hero__button}>
                   START LEARNING!
                 </Button>
               </a>

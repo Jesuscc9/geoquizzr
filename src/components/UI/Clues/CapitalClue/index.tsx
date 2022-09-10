@@ -70,7 +70,7 @@ export const CapitalClue: FC<iProps> = ({ data, decrement }) => {
                   }}
                   key={i}
                 >
-                  <Image src={PersonIcon} width='30' height='40' />
+                  <Image src={PersonIcon} width="30" height="40" />
                 </motion.div>
               )
             })}

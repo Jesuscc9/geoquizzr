@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC } from 'react'
 
 export interface iLoginValues {
   email: string
@@ -9,18 +9,18 @@ export interface iSignupValues extends iLoginValues {}
 
 export interface iClue {
   key:
-    | "population"
-    | "continents"
-    | "capital"
-    | "capitalInfo"
-    | "car"
-    | "cca2"
-    | "flag"
-    | "flags"
-    | "latlng"
-    | "maps"
-    | "name"
-    | "population"
+    | 'population'
+    | 'continents'
+    | 'capital'
+    | 'capitalInfo'
+    | 'car'
+    | 'cca2'
+    | 'flag'
+    | 'flags'
+    | 'latlng'
+    | 'maps'
+    | 'name'
+    | 'population'
   component: FC<any>
   cost: number
 }
@@ -31,6 +31,13 @@ export interface iQuizz {
   created_by: string
   total_rounds: number
   created_at: Date
+}
+
+export interface iNewRound {
+  latlng?: number[]
+  country_cca2?: string
+  timed_out?: boolean
+  round_id: number
 }
 
 export interface iNewQuizz {
@@ -53,14 +60,7 @@ export interface iGuess {
   score: number
   created_at: Date
 }
-export interface iNewGuess {
-  round_id: number
-  latlng: number[]
-  country_cca2: string
-  timed_out: boolean
-  consumed_seconds: number
-  score: number
-}
+export type iNewGuess = any
 
 export interface iUpdateGuess {}
 
@@ -68,7 +68,7 @@ export interface iRound {
   id: number
   guesses: iGuess[]
   created_at: Date
+  static_image_latlng: number[]
 }
 
-export interface iNewRound {}
 export interface iUpdateRound {}

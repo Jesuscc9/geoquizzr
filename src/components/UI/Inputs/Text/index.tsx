@@ -12,7 +12,7 @@ export const InputText: FC<iProps> = ({ label, ...props }) => {
   return (
     <>
       {label && <p className={styles.InputLabel}>{label}</p>}
-      <input type='text' className={styles.InputText} {...props} />
+      <input type="text" className={styles.InputText} {...props} />
     </>
   )
 }

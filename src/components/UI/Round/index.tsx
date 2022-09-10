@@ -1,5 +1,5 @@
-import { iRound } from "types"
-import React from "react"
+import { iRound } from 'types'
+import React from 'react'
 
 export const Round = (data: iRound) => {
   return (

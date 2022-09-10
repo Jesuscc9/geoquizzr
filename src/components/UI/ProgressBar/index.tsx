@@ -11,7 +11,7 @@ export const ProgressBar: FC<iProps> = ({ progress, text }) => {
     <>
       <p>{text}</p>
       <motion.div
-        layout='size'
+        layout="size"
         style={{
           width: `${progress}%`,
           height: 20,

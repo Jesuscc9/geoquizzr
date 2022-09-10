@@ -8,10 +8,10 @@ export const Loader: FC = () => {
   return (
     <div className={styles.Loader}>
       <div className={styles.LoaderCircle}>
-        <Image src={LoaderImg} layout='responsive' />
+        <Image src={LoaderImg} layout="responsive" />
       </div>
       <div className={styles.LoaderBg}>
-        <Image src={LoaderBg} layout='fixed' width='92' />
+        <Image src={LoaderBg} layout="fixed" width="92" />
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ const Login: FC = () => {
       <Head>
         <title>Login</title>
       </Head>
-      <div id='BackgroundDecoration' key='login'></div>
+      <div id="BackgroundDecoration" key="login"></div>
       <Navbar />
       <LoginForm />
     </>

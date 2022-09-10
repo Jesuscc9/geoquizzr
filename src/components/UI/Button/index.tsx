@@ -45,7 +45,7 @@ export const Button: FC<iProps> = ({
           transition: 'opacity 0.2s'
         }}
       >
-        <PulseLoader size={10} color='#fff' />
+        <PulseLoader size={10} color="#fff" />
       </div>
     </motion.button>
   )

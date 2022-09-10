@@ -1,11 +1,11 @@
-import confetti from "canvas-confetti"
-import { CountrySelector } from "components/forms"
-import { Button, Clues, Loader, Map, ProgressBar } from "components/UI"
-import { useQuizzes, useTimer } from "hooks"
-import { useRouter } from "next/router"
-import React, { FC, useEffect, useState } from "react"
-import useInmutableSWR from "swr/immutable"
-import styles from "./styles.module.css"
+import confetti from 'canvas-confetti'
+import { CountrySelector } from 'components/forms'
+import { Button, Clues, Loader, ProgressBar, StreetView } from 'components/UI'
+import { useQuizzes, useTimer } from 'hooks'
+import { useRouter } from 'next/router'
+import React, { FC, useEffect, useState } from 'react'
+import useInmutableSWR from 'swr/immutable'
+import styles from './styles.module.css'
 
 const TOTAL_SECONDS = 40
 
@@ -18,7 +18,7 @@ const QuizzGame: FC = () => {
     query: { uuid }
   } = router
 
-  const shouldFetch = typeof uuid !== "undefined"
+  const shouldFetch = typeof uuid !== 'undefined'
 
   const {
     data: quizz,
@@ -64,10 +64,7 @@ const QuizzGame: FC = () => {
   }
 
   useEffect(() => {
-    console.log({ quizz })
-    if (quizz && quizz.finished === false) {
-      start()
-    }
+    if (quizz && quizz.finished === false) start()
   }, [quizz])
 
   useEffect(() => {
@@ -116,7 +113,8 @@ const QuizzGame: FC = () => {
             <h1>What country is this? 🤔</h1>
             <div className={styles.QuizGrid}>
               <div>
-                <Map />
+                {/* <Map /> */}
+                <StreetView round={currentRound} />
               </div>
 
               <div>

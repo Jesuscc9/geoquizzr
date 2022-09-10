@@ -98,3 +98,10 @@ button:disabled {
 a {
   text-decoration: none;
 }
+
+#__next {
+  height: 100%;
+}
+#map {
+  height: 100%;
+}

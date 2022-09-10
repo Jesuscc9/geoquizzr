@@ -47,7 +47,7 @@ export const Modal: FC<{
 
   return (
     <>
-      <ReactPortal wrapperId='modal-wrapper'>
+      <ReactPortal wrapperId="modal-wrapper">
         <AnimatePresence>
           {showModal && (
             <motion.div
@@ -64,7 +64,7 @@ export const Modal: FC<{
                 }}
               />
               <motion.div
-                layoutId='modal-content'
+                layoutId="modal-content"
                 className={`${modal} ${className}`}
                 style={{
                   overflowY: overflowAuto === true ? 'auto' : 'visible'
@@ -76,7 +76,7 @@ export const Modal: FC<{
                   }`}
                 >
                   {title && (
-                    <p className='text-lg text-indigo-800 font-medium'>
+                    <p className="text-lg text-indigo-800 font-medium">
                       {title}
                     </p>
                   )}
