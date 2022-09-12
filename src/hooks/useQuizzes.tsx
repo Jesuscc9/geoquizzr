@@ -43,7 +43,7 @@ export const useQuizzes = () => {
     useState<boolean>(false)
   const [errorRound, setErrorRound] = useState<string | undefined>()
 
-  const { data: quizzes, error } = useSWR(SWR_KEY)
+  const { data: quizzes, error } = useSWR<iQuizz[]>(SWR_KEY)
 
   const create = async ({ body, onSuccess }: iCreateProps) => {
     setIsLoadingCreate(true)

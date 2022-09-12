@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { CustomRouter } from 'components/UI'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
@@ -46,8 +47,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <SWRConfig value={{ fetcher }}>
-        <Component {...pageProps} />
+        <CustomRouter>
+          <Component {...pageProps} />
+        </CustomRouter>
       </SWRConfig>
+      {/* 
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGcxn8bTwWyW7Bwg4KRdgkpIlqTfL9Vds&v=weekly"
+        defer
+      ></script> */}
     </>
   )
 }

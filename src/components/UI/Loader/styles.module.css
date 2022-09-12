@@ -32,4 +32,5 @@
 .LoaderBg {
   position: absolute;
   width: 92px;
+  opacity: 0.1;
 }

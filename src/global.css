@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'neo-sans';
   font-style: normal;
@@ -104,4 +108,54 @@ a {
 }
 #map {
   height: 100%;
+}
+
+/*  */
+
+.common-bg {
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: fixed;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.quizzes-background {
+  background: radial-gradient(
+      66.5% 221.21% at 136.03% -61.44%,
+      rgba(161, 155, 217, 0.4) 0%,
+      rgba(161, 155, 217, 0) 92.09%
+    ),
+    radial-gradient(
+      93.54% 126.91% at 29.15% -56.29%,
+      rgba(233, 69, 96, 0.7) 0%,
+      rgba(233, 69, 96, 0) 92.09%
+    ),
+    radial-gradient(
+      86.19% 101.84% at -17.13% -24.8%,
+      rgba(0, 162, 254, 0.7) 0%,
+      rgba(0, 162, 254, 0) 92.09%
+    ),
+    var(--purple-800);
+}
+
+.login-background,
+.signup-background {
+  background: radial-gradient(
+      66.5% 221.21% at 136.03% -61.44%,
+      #7950e5 0%,
+      rgba(121, 80, 229, 0) 92.09%
+    ),
+    radial-gradient(
+      93.54% 126.91% at 29.15% -56.29%,
+      rgba(254, 205, 25, 0.5) 0%,
+      rgba(254, 205, 25, 0) 92.09%
+    ),
+    radial-gradient(
+      86.19% 101.84% at -17.13% -24.8%,
+      rgba(255, 164, 61, 0.5) 0%,
+      rgba(191, 123, 46, 0) 92.09%
+    ),
+    var(--purple-800);
 }

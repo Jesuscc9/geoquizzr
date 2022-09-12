@@ -70,9 +70,6 @@ export const createNewRound = async (quizzId: string) => {
 
         const location = await request.json()
 
-        console.log({ location })
-        console.log({ lat: location.lat, lng: location.lng })
-
         if (location.status !== 'OK') {
           validLocationTriesWithSameCountry++
           return await isValidLocation()

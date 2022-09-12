@@ -14,7 +14,14 @@ export default async function handler(
 
   const handleGet = async () => {
     try {
-      const { data, error } = await supabase.from('quizzes').select('*')
+      const { data, error } = await supabase
+        .from('quizzes')
+        .select(
+          `*, rounds (
+          *, country ( * ), guess ( * )
+          )`
+        )
+        .order('id', { ascending: false })
 
       if (error) return res.status(Number(error?.code)).json(error)
 

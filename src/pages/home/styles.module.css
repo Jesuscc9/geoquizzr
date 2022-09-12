@@ -59,6 +59,9 @@
 
 .Hero__text {
   padding: var(--sections-padding);
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
 }
 
 .Hero__image {

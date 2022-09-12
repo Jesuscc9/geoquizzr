@@ -7,6 +7,23 @@ export interface iLoginValues {
 
 export interface iSignupValues extends iLoginValues {}
 
+export interface iGuess {
+  id: number
+  round_id: number
+  latlng: number[]
+  country_cca2: string
+  timed_out: boolean
+  consumed_seconds: number
+  score: number
+  created_at: Date
+}
+export interface iRound {
+  id: number
+  guesses: iGuess[]
+  created_at: Date
+  static_image_latlng: number[]
+}
+
 export interface iClue {
   key:
     | 'population'
@@ -31,6 +48,8 @@ export interface iQuizz {
   created_by: string
   total_rounds: number
   created_at: Date
+
+  rounds: iRound[]
 }
 
 export interface iNewRound {
@@ -50,25 +69,8 @@ export interface iUpdateQuizz {
   consumed_seconds: number
   ended_at: Date
 }
-export interface iGuess {
-  id: number
-  round_id: number
-  latlng: number[]
-  country_cca2: string
-  timed_out: boolean
-  consumed_seconds: number
-  score: number
-  created_at: Date
-}
 export type iNewGuess = any
 
 export interface iUpdateGuess {}
-
-export interface iRound {
-  id: number
-  guesses: iGuess[]
-  created_at: Date
-  static_image_latlng: number[]
-}
 
 export interface iUpdateRound {}

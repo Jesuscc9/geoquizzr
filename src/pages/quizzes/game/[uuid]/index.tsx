@@ -1,11 +1,9 @@
 import confetti from 'canvas-confetti'
-import { CountrySelector } from 'components/forms'
-import { Button, Clues, Loader, ProgressBar, StreetView } from 'components/UI'
+import { Button, Loader, StreetView } from 'components/UI'
 import { useQuizzes, useTimer } from 'hooks'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import useInmutableSWR from 'swr/immutable'
-import styles from './styles.module.css'
 
 const TOTAL_SECONDS = 40
 
@@ -69,6 +67,7 @@ const QuizzGame: FC = () => {
 
   useEffect(() => {
     if (!quizz) return
+    // If the guess was correct
     if (quizz.rounds?.at(-1)?.guess?.at(-1)?.is_correct) confetti()
   }, [quizz])
 
@@ -99,6 +98,7 @@ const QuizzGame: FC = () => {
               onClick={() => {
                 setShowSummary(true)
               }}
+              className="text-sm"
             >
               VIEW SUMMARY
             </Button>
@@ -108,23 +108,15 @@ const QuizzGame: FC = () => {
         </div>
       ) : (
         <>
-          <ProgressBar progress={percentage} text={seconds} />
-          <div>
-            <h1>What country is this? 🤔</h1>
-            <div className={styles.QuizGrid}>
-              <div>
-                {/* <Map /> */}
-                <StreetView round={currentRound} />
-              </div>
-
-              <div>
-                <CountrySelector
-                  timerStillRunning={isRunning}
-                  onCorrectGuess={stop}
-                />
-              </div>
-              <Clues decrement={decrement} />
-            </div>
+          <div className="w-screen h-screen">
+            <StreetView
+              decrement={decrement}
+              round={currentRound}
+              progress={percentage}
+              progressText={seconds}
+              timerStillRunning={isRunning}
+              onCorrectGuess={stop}
+            />
           </div>
         </>
       )}

@@ -5,14 +5,11 @@ export const Clues: FC<{ decrement: (n: number) => void }> = ({
   decrement
 }) => {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>CLUES: </h1>
-      <div style={{ display: 'flex', gap: '2rem' }}>
-        {CluesData.map((e, i) => {
-          const ClueComponent = e.component
-          return <ClueComponent data={e} decrement={decrement} key={i} />
-        })}
-      </div>
+    <div className="flex flex-col gap-3">
+      {CluesData.map((e, i) => {
+        const ClueComponent = e.component
+        return <ClueComponent data={e} decrement={decrement} key={i} />
+      })}
     </div>
   )
 }

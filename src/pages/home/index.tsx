@@ -20,13 +20,13 @@ const Home: NextPage = () => {
       <div className={styles.MainContainer}>
         <div className={styles.Hero}>
           <div className={styles.Hero__text}>
-            <h1>
+            <h1 className="font-bold">
               DISCOVER YOUR OWN <br /> WORLD!
             </h1>
             <p>Learn information about countries all around the world</p>
             <Link href="/quizzes/new">
               <a>
-                <Button color="#FECD19" className={styles.Hero__button}>
+                <Button color="#FECD19" className="text-sm py-4">
                   START LEARNING!
                 </Button>
               </a>

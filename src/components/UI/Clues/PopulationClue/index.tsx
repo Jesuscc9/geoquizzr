@@ -3,11 +3,10 @@ import { ClueWrapper } from 'components/UI'
 import { motion } from 'framer-motion'
 import { maskNumber } from 'helpers/utils'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
+import router from 'next/router'
 import useSWR from 'swr'
 import { iClue } from 'types'
-import styles from './styles.module.css'
 
 interface iProps {
   data: iClue
@@ -17,7 +16,7 @@ interface iProps {
 export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
   const [revealClue, setRevealClue] = useState<boolean>(false)
 
-  const router = useRouter()
+  console.log({ router: router.query })
 
   const {
     query: { uuid }
@@ -39,16 +38,25 @@ export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
 
   return (
     <>
-      <div className={styles.PopulationClue} onClick={handleClueClick}>
-        {revealClue ? (
-          <p>The population is {maskNumber(population)}</p>
-        ) : (
-          <>
-            <h3>SHOW POPULATION</h3>
-            <p>-({data.cost} seconds)</p>
-          </>
-        )}
-      </div>
+      <motion.div
+        className="bg-purple p-4 cursor-pointer border-4 rounded-lg border-yellow-600"
+        onClick={handleClueClick}
+        initial={{ x: -40 }}
+        whileHover={{ x: -26 }}
+      >
+        <motion.div className="ml-10">
+          {revealClue ? (
+            <p>The population is {maskNumber(population)}</p>
+          ) : (
+            <>
+              <h3 className="text-sm font-semibold">SHOW POPULATION</h3>
+              <p className="mt-2 font-semibold opacity-60">
+                -({data.cost} seconds)
+              </p>
+            </>
+          )}
+        </motion.div>
+      </motion.div>
 
       {revealClue && (
         <ClueWrapper>

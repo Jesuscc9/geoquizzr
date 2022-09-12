@@ -1,20 +1,15 @@
 import { useQuizzes } from 'hooks'
-import { useRouter } from 'next/router'
+import router from 'next/router'
 import React, { FC } from 'react'
 import Select from 'react-select'
 import useSWR from 'swr'
+import countries from '../../../../public/countries.json'
 
 export const CountrySelector: FC<{
   timerStillRunning: boolean
   onCorrectGuess: () => void
 }> = ({ timerStillRunning, onCorrectGuess }) => {
-  const { data: countries } = useSWR('https://restcountries.com/v3.1/all')
-
-  const router = useRouter()
-
-  const {
-    query: { uuid }
-  } = router
+  const uuid = router?.query.uuid
 
   const { data: quizz, mutate } = useSWR(`/api/quizzes/${uuid}`)
 
@@ -28,20 +23,14 @@ export const CountrySelector: FC<{
 
   if (!countries || !countryToGuess) return <div>Loading...</div>
 
-  const options: { value: string; label: string }[] = []
-
-  countries.forEach((e: any) => {
-    options.push({
-      value: e.cca2,
-      label: e.name.common
-    })
-  })
+  const options: { value: string; label: string }[] = countries.map((e) => ({
+    value: e.cca2,
+    label: e.name.common
+  }))
 
   const handleCountryChange = (e: any) => {
     if (!timerStillRunning) return
-
     const isCorrect = e.value === countryToGuess
-
     createGuess({
       body: {
         timed_out: false,
@@ -58,15 +47,19 @@ export const CountrySelector: FC<{
   }
 
   return (
-    <Select
-      options={options}
-      styles={{
-        option: (provided) => ({
-          ...provided,
-          color: 'black'
-        })
-      }}
-      onChange={handleCountryChange}
-    />
+    <div className="">
+      <Select
+        options={options}
+        styles={{
+          option: (provided) => ({
+            ...provided,
+            color: 'black'
+          })
+        }}
+        className="text-base"
+        menuPlacement="top"
+        onChange={handleCountryChange}
+      />
+    </div>
   )
 }
