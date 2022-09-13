@@ -36,7 +36,7 @@ export const CapitalClue: FC<iProps> = ({ data, decrement }) => {
   return (
     <>
       <motion.div
-        className="bg-purple p-4 cursor-pointer border-4 rounded-lg border-yellow-600"
+        className="bg-purple p-4 cursor-pointer select-none border-4 rounded-lg border-yellow-600"
         onClick={handleClueClick}
         initial={{ x: -40 }}
         whileHover={{ x: -26 }}
