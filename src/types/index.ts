@@ -19,7 +19,7 @@ export interface iGuess {
 }
 export interface iRound {
   id: number
-  guesses: iGuess[]
+  guess: iGuess[]
   created_at: Date
   static_image_latlng: number[]
 }
@@ -48,7 +48,7 @@ export interface iQuizz {
   created_by: string
   total_rounds: number
   created_at: Date
-
+  finished: boolean
   rounds: iRound[]
 }
 

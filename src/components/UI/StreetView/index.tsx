@@ -5,6 +5,8 @@ import { iRound } from 'types'
 import { createRoot, Root } from 'react-dom/client'
 import { Clues } from '../Clues'
 import { ProgressBar } from '../ProgressBar'
+import { useRouter } from 'next/router'
+import useSWR from 'swr'
 
 export const StreetView: FC<{
   round: iRound
@@ -99,11 +101,10 @@ export const StreetView: FC<{
 
   useEffect(() => {
     if (!progressBarRoot.current) return
-
     progressBarRoot.current.render(
       <ProgressBar progress={progress} text={progressText} />
     )
-  }, [googleApi, progress])
+  }, [progress])
 
   return <div style={{ width: '100%', height: '100%' }} ref={googlemap} />
 }

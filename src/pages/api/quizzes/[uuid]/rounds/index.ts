@@ -16,7 +16,7 @@ export default async function handler(
 
   const handlePost = async () => {
     try {
-      const quizz: any = await selectQuizz('uuid', String(uuid))
+      const quizz = await selectQuizz('uuid', String(uuid))
 
       // Create another round
       const data = await createNewRound(String(quizz.id))
