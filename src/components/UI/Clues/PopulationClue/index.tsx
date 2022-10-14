@@ -16,8 +16,6 @@ interface iProps {
 export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
   const [revealClue, setRevealClue] = useState<boolean>(false)
 
-  console.log({ router: router.query })
-
   const {
     query: { uuid }
   } = router

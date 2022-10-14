@@ -7,8 +7,6 @@ interface iProps {
 }
 
 export const ProgressBar: FC<iProps> = ({ progress, text }) => {
-  console.log({ progressDesdeComponent: progress, text })
-
   return (
     <>
       <div className="mt-2">

@@ -3,5 +3,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "workbench.colorTheme": "Community Material Theme High Contrast"
+  "workbench.colorTheme": "Community Material Theme"
 }

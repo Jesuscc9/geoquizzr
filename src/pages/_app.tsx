@@ -51,11 +51,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </CustomRouter>
       </SWRConfig>
-      {/* 
-      <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGcxn8bTwWyW7Bwg4KRdgkpIlqTfL9Vds&v=weekly"
-        defer
-      ></script> */}
     </>
   )
 }

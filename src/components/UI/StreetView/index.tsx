@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { Loader } from '@googlemaps/js-api-loader'
 import { CountrySelector } from 'components/forms'
-import React, { FC, useEffect, useRef, useState } from 'react'
-import { render } from 'react-dom'
+import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { iRound } from 'types'
-import { createRoot } from 'react-dom/client'
+import { createRoot, Root } from 'react-dom/client'
 import { Clues } from '../Clues'
 import { ProgressBar } from '../ProgressBar'
 
@@ -28,7 +26,8 @@ export const StreetView: FC<{
 
   const progressBarDiv = document.createElement('div')
   progressBarDiv.style.width = '90%'
-  const progressBarRoot = createRoot(progressBarDiv)
+
+  const progressBarRoot: MutableRefObject<Root | null> = useRef(null)
 
   useEffect(() => {
     if (!googlemap.current) return
@@ -95,16 +94,16 @@ export const StreetView: FC<{
       progressBarDiv
     )
 
-    console.log({ googleApi })
+    progressBarRoot.current = createRoot(progressBarDiv)
   }, [googleApi])
 
   useEffect(() => {
-    progressBarRoot.render(
+    if (!progressBarRoot.current) return
+
+    progressBarRoot.current.render(
       <ProgressBar progress={progress} text={progressText} />
     )
   }, [googleApi, progress])
-
-  console.log({ progress })
 
   return <div style={{ width: '100%', height: '100%' }} ref={googlemap} />
 }
