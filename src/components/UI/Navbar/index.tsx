@@ -8,7 +8,9 @@ import React, { FC } from 'react'
 import styles from './styles.module.css'
 
 export const Navbar: FC = () => {
-  const { user } = useUser()
+  const { user, session } = useUser()
+
+  console.log({ user, session })
 
   return (
     <nav className={`${styles.Navbar} p-5`}>

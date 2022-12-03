@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { CustomRouter } from 'components/UI'
+import { UserProvider } from 'hooks'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
@@ -48,7 +49,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
       <SWRConfig value={{ fetcher }}>
         <CustomRouter>
-          <Component {...pageProps} />
+          <UserProvider>
+            <Component {...pageProps} />
+          </UserProvider>
         </CustomRouter>
       </SWRConfig>
     </>

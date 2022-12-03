@@ -64,8 +64,6 @@ const Home: NextPage = () => {
                   </Canvas>
                 </Suspense>
               </div>
-
-              {/* <Image src={EarthImage} /> */}
             </div>
 
             <div className="w-full py-20 mt-20 flex gap-5 justify-between">
