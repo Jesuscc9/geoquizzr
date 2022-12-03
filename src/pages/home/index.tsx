@@ -1,34 +1,11 @@
-import { Button, Footer, Navbar } from 'components/UI'
+import { Button, Footer, Navbar, Earth3D } from 'components/UI'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-
 import Link from 'next/link'
-import React, { Suspense, useEffect, useState } from 'react'
-
+import React, { Suspense } from 'react'
 import styles from './styles.module.css'
-import { Canvas, useLoader } from '@react-three/fiber'
-import { adjust } from 'helpers/utils'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-
-const Model = () => {
-  const gltf = useLoader(GLTFLoader, '/assets/earth2/scene.gltf')
-
-  const [rotation, setRotation] = useState<number>(0)
-
-  useEffect(() => {
-    window.addEventListener('scroll', (e) => {
-      const currentScroll = window.scrollY
-      setRotation(adjust(currentScroll, 0, 1000, 0, Math.PI / 1.5))
-    })
-  }, [])
-
-  return (
-    <>
-      <primitive object={gltf.scene} scale={0.01} rotation={[rotation, 0, 0]} />
-    </>
-  )
-}
 
 const Home: NextPage = () => {
   return (
@@ -62,28 +39,30 @@ const Home: NextPage = () => {
             </div>
             <div className={styles.Hero__image} id="earth-container">
               <div className={styles.globe + ' cursor-grabbing m-auto mt-20'}>
-                <Canvas
-                  shadows
-                  dpr={[1, 2]}
-                  camera={{ position: [0, 0, 4], fov: 30, rotateX: 20 }}
-                >
-                  <ambientLight intensity={0.7} />
-                  <spotLight
-                    intensity={0.5}
-                    angle={0.1}
-                    penumbra={1}
-                    position={[10, 15, 10]}
-                    castShadow
-                  />
-                  <Suspense fallback={null}>
-                    <Model />
-                    <OrbitControls
-                      autoRotate
-                      enableZoom={false}
-                      autoRotateSpeed={0.5}
+                <Suspense fallback={<p className="text-white">Loading...</p>}>
+                  <Canvas
+                    shadows
+                    dpr={[1, 2]}
+                    camera={{ position: [0, 0, 4], fov: 30, rotateX: 20 }}
+                  >
+                    <ambientLight intensity={0.7} />
+                    <spotLight
+                      intensity={0.5}
+                      angle={0.1}
+                      penumbra={1}
+                      position={[10, 15, 10]}
+                      castShadow
                     />
-                  </Suspense>
-                </Canvas>
+                    <Suspense fallback={null}>
+                      <Earth3D />
+                      <OrbitControls
+                        autoRotate
+                        enableZoom={false}
+                        autoRotateSpeed={0.6}
+                      />
+                    </Suspense>
+                  </Canvas>
+                </Suspense>
               </div>
 
               {/* <Image src={EarthImage} /> */}
