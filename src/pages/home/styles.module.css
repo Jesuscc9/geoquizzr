@@ -1,5 +1,5 @@
 .MainContainer {
-  --sections-padding: 0.4rem 1rem;
+  --sections-padding: 0rem 1rem;
 }
 
 .BackgroundCity {
@@ -17,27 +17,17 @@
 .Hero {
   width: 100%;
   position: relative;
-  margin-top: 1rem;
-  overflow-x: clip;
 }
 
 @media screen and (min-width: 768px) {
   .MainContainer {
-    --sections-padding: 1rem 2rem;
-  }
-
-  .Hero {
-    margin-top: 2rem;
+    --sections-padding: 0rem 2rem;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .MainContainer {
-    --sections-padding: 2rem 4rem;
-  }
-
-  .Hero {
-    margin-top: 3rem;
+    --sections-padding: 0rem 4rem;
   }
 
   .BackgroundCity {
@@ -57,20 +47,27 @@
   }
 }
 
-.Hero__text {
+.Hero {
   padding: var(--sections-padding);
+}
+
+.Hero__text {
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
 }
 
 .Hero__image {
-  position: absolute;
-  right: 0;
-  top: 24%;
-  z-index: -1;
+  /* position: fixed; */
+  /* right: 0px; */
+  /* top: 0px;   */
+  z-index: 10;
+}
 
-  transform: translateX(40%);
+.globe {
+  height: 500px;
+  width: 500px;
+  cursor: grabbing;
 }
 
 .Hero h1 {

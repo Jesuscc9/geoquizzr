@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -7,7 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        purple: '#1a1a2e'
+        purple: '#1a1a2e',
+        yellow: {
+          500: '#FECD19'
+        }
       }
     }
   },

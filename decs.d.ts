@@ -5,3 +5,5 @@ declare global {
     google: any
   }
 }
+
+declare module 'three'

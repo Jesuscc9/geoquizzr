@@ -31,7 +31,7 @@ export const Button: FC<iProps> = ({
         border: variant === 'primary' ? 0 : '1px solid'
       }}
       whileHover={{
-        scale: 1.04,
+        filter: 'brightness(1.15)',
         transition: { duration: 0.1 }
       }}
     >
