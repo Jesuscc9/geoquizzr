@@ -176,3 +176,33 @@ a {
     ),
     var(--purple-800);
 }
+
+/* Home styles */
+
+:root {
+  --sections-padding: 0rem 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --sections-padding: 0rem 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --sections-padding: 0rem 4rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  :root {
+    --sections-padding: 2rem 6rem;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  :root {
+    --sections-padding: 2rem 12rem;
+  }
+}

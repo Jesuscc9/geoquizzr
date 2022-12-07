@@ -33,8 +33,8 @@ export const Navbar: FC = () => {
       <h4 className="font-bold">geoquizzr</h4>
       {user ? (
         <div className={styles['Navbar__user-data']}>
-          <Avatar src={user.picture} />
-          <h5 className="font-semibold">{user.name}</h5>
+          {/* <Avatar src={user.picture} /> */}
+          {/* <h5 className="font-semibold">{user.name}</h5> */}
         </div>
       ) : (
         <div className={styles['Navbar__auth-buttons']}>

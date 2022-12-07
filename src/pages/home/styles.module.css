@@ -1,5 +1,11 @@
 .MainContainer {
-  --sections-padding: 0rem 1rem;
+  padding: var(--sections-padding);
+}
+
+@media screen and (min-width: 1024px) {
+  .BackgroundCity {
+    background-position: 0 100%;
+  }
 }
 
 .BackgroundCity {
@@ -14,66 +20,7 @@
   z-index: -1;
 }
 
-.Hero {
-  width: 100%;
-  position: relative;
-}
-
-@media screen and (min-width: 768px) {
-  .MainContainer {
-    --sections-padding: 0rem 2rem;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .MainContainer {
-    --sections-padding: 0rem 4rem;
-  }
-
-  .BackgroundCity {
-    background-position: 0 100%;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .MainContainer {
-    --sections-padding: 2rem 6rem;
-  }
-}
-
-@media screen and (min-width: 1536px) {
-  .MainContainer {
-    --sections-padding: 2rem 12rem;
-  }
-}
-
-.Hero {
-  padding: var(--sections-padding);
-}
-
-.Hero__text {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
-}
-
-.Hero__image {
-  /* position: fixed; */
-  /* right: 0px; */
-  /* top: 0px;   */
-  z-index: 10;
-}
-
 .globe {
   height: 500px;
   width: 500px;
-  cursor: grabbing;
-}
-
-.Hero h1 {
-  font-size: 4rem;
-}
-
-.Hero__button {
-  padding: 1rem 1.6rem;
 }
