@@ -1,5 +1,5 @@
-import { SignupForm } from 'components/forms'
-import { Navbar } from 'components/UI'
+import { SignupForm } from '../../components/forms'
+import { Navbar } from '../../components/UI'
 import React, { FC } from 'react'
 
 const Signup: FC = () => {

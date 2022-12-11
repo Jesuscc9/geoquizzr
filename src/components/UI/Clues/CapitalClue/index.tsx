@@ -1,11 +1,9 @@
-import PersonIcon from '@/images/person.png'
-import { ClueWrapper } from 'components/UI'
+import PersonIcon from '../../../../assets/images/person.png'
+import { ClueWrapper } from '../../../UI'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
-import router from 'next/router'
 import React, { FC, useState } from 'react'
 import useSWR from 'swr'
-import { iClue } from 'types'
+import { iClue } from '../../../../types'
 
 interface iProps {
   data: iClue
@@ -15,9 +13,11 @@ interface iProps {
 export const CapitalClue: FC<iProps> = ({ data, decrement }) => {
   const [revealClue, setRevealClue] = useState<boolean>(false)
 
-  const {
-    query: { uuid }
-  } = router
+  // const {
+  //   query: { uuid }
+  // } = router
+
+  const uuid = ''
 
   const { data: quizz } = useSWR(`/api/quizzes/${uuid}`)
 
@@ -76,7 +76,7 @@ export const CapitalClue: FC<iProps> = ({ data, decrement }) => {
                   }}
                   key={i}
                 >
-                  <Image src={PersonIcon} width="30" height="40" />
+                  <img src={PersonIcon} width="30" height="40" />
                 </motion.div>
               )
             })}

@@ -1,7 +1,5 @@
-import { Button, Footer, Navbar, Earth3D } from 'components/UI'
+import { Button, Footer, Navbar, Earth3D } from '../../components/UI'
 import { NextPage } from 'next'
-import Head from 'next/head'
-import Link from 'next/link'
 import React, { Suspense } from 'react'
 import styles from './styles.module.css'
 import { Canvas } from '@react-three/fiber'
@@ -10,9 +8,6 @@ import { OrbitControls } from '@react-three/drei'
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Geoquizzr</title>
-      </Head>
       <div id="BackgroundDecoration" key="home"></div>
       {/* <div className={styles.BackgroundCity}></div> */}
 
@@ -27,16 +22,14 @@ const Home: NextPage = () => {
             <p className="text-lg">
               Learn information about countries all around the world
             </p>
-            <Link href="/quizzes/new">
-              <a className="w-min">
-                <Button
-                  color="#ddb00f"
-                  className="text-sm py-4 whitespace-nowrap"
-                >
-                  START LEARNING!
-                </Button>
-              </a>
-            </Link>
+            <a className="w-min" href="/quizzes/new">
+              <Button
+                color="#ddb00f"
+                className="text-sm py-4 whitespace-nowrap"
+              >
+                START LEARNING!
+              </Button>
+            </a>
           </div>
           <div>
             <div className={styles.globe + ' cursor-grabbing m-auto mt-20'}>
@@ -44,7 +37,7 @@ const Home: NextPage = () => {
                 <Canvas
                   shadows
                   dpr={[1, 2]}
-                  camera={{ position: [0, 0, 4], fov: 30, rotateX: 20 }}
+                  camera={{ position: [0, 0, 4], fov: 30 }}
                 >
                   <ambientLight intensity={0.7} />
                   <spotLight

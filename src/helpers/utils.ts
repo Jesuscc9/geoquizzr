@@ -1,7 +1,29 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 // Fetcher wrapper
-export const fetcher = (url: string) => axios.get(url).then((res) => res.data)
+export const fetcher = async (
+  url: string,
+  method = 'GET',
+  data?: { [key: string]: any }
+) => {
+  const options: AxiosRequestConfig<any> = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  }
+
+  options.method = method
+
+  if (data) options.data = JSON.stringify(data)
+
+  return axios(url, options).then((res) => {
+    if (res.statusText !== 'OK') {
+      console.error('handle global error', res.statusText)
+    }
+    return res.data
+  })
+}
 
 // Random number between range
 export function randomBetween(min: number = 1, max: number = 100) {

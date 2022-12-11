@@ -1,4 +1,4 @@
-import { ReactPortal } from 'components/UI'
+import { ReactPortal } from '../../../components/UI'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import styles from './styles.module.css'

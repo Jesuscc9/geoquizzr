@@ -1,12 +1,10 @@
 import { Loader } from '@googlemaps/js-api-loader'
-import { CountrySelector } from 'components/forms'
+import { CountrySelector } from '../../forms'
 import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
-import { iRound } from 'types'
+import { iRound } from '../../../types'
 import { createRoot, Root } from 'react-dom/client'
 import { Clues } from '../Clues'
 import { ProgressBar } from '../ProgressBar'
-import { useRouter } from 'next/router'
-import useSWR from 'swr'
 
 export const StreetView: FC<{
   round: iRound

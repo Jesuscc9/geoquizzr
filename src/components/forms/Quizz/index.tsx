@@ -1,4 +1,4 @@
-import { InputText } from 'components/UI'
+import { InputText } from '../../UI'
 import React, { FC } from 'react'
 
 export const QuizzForm: FC = () => {

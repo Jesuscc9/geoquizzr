@@ -1,5 +1,5 @@
-import { fetcher } from 'pages/_app'
 import { useState } from 'react'
+import { fetcher } from '../helpers'
 import useSWR from 'swr'
 import { iNewGuess, iNewQuizz, iQuizz, iUpdateQuizz } from 'types'
 

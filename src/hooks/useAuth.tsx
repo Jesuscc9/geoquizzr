@@ -1,12 +1,9 @@
 import { User } from '@supabase/gotrue-js'
 import { useState } from 'react'
 import { useSWRConfig } from 'swr'
-import { supabase } from '../services'
 import { iLoginValues, iSignupValues } from '../types'
-
-const parseUser = (rawUser: User | null) => {
-  return rawUser?.identities?.[0].identity_data
-}
+import { supabase } from '../services'
+import { debug } from 'console'
 
 const SWR_KEY = 'api/user'
 
@@ -17,6 +14,7 @@ export const useAuth = () => {
   const [error, setError] = useState<null | string>(null)
 
   const handleError = (e: string) => {
+    console.error(e)
     setError(e)
     setIsLoading(false)
   }
@@ -24,14 +22,19 @@ export const useAuth = () => {
   const loginWithGoogle = async () => {
     setIsLoading(true)
     try {
-      await mutate(SWR_KEY, async () => {
-        const { user: rawUser } = await supabase.auth.signIn({
-          provider: 'google'
-        })
-        setError(null)
-        setIsLoading(false)
-        return parseUser(rawUser)
+      const res = await supabase.auth.signInWithOAuth({
+        provider: 'google'
       })
+
+      if (res.error) {
+        handleError(res.error.message)
+        return
+      }
+
+      await mutate(SWR_KEY)
+
+      setError(null)
+      setIsLoading(false)
     } catch (e) {
       handleError(String(e))
     }
@@ -40,16 +43,16 @@ export const useAuth = () => {
   const login = async (values: iLoginValues) => {
     setIsLoading(true)
     try {
-      await mutate(SWR_KEY, async () => {
-        const { user: rawUser, error } = await supabase.auth.signIn(values)
-        if (error) {
-          handleError(error.message)
-          return
-        }
-        setError(null)
-        setIsLoading(false)
-        return parseUser(rawUser)
-      })
+      const res = await supabase.auth.signInWithPassword(values)
+      await mutate(SWR_KEY)
+
+      if (res.error) {
+        handleError(res.error?.message)
+        return
+      }
+
+      setError(null)
+      setIsLoading(false)
     } catch (e) {
       handleError(String(e))
     }
@@ -58,16 +61,15 @@ export const useAuth = () => {
   const signUp = async (values: iSignupValues) => {
     setIsLoading(true)
     try {
-      await mutate(SWR_KEY, async () => {
-        const { user: rawUser, error } = await supabase.auth.signUp(values)
-        if (error) {
-          handleError(error.message)
-          return
-        }
-        setError(null)
-        setIsLoading(false)
-        return parseUser(rawUser)
-      })
+      const res = await supabase.auth.signUp(values)
+      await mutate(SWR_KEY)
+
+      if (res.error) {
+        handleError(res.error.message)
+      }
+
+      setError(null)
+      setIsLoading(false)
     } catch (e) {
       handleError(String(e))
     }

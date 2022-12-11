@@ -1,7 +1,7 @@
-import { Button, FormNotice, InputText } from 'components/UI'
+import { Button, FormNotice, InputText } from '../../UI'
 import { useFormik } from 'formik'
 import { motion } from 'framer-motion'
-import { useAuth } from 'hooks'
+import { useAuth } from '../../../hooks'
 import React, { FC } from 'react'
 import styles from './styles.module.css'
 

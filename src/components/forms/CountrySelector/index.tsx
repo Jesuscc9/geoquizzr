@@ -1,15 +1,15 @@
-import { useQuizzes } from 'hooks'
-import router from 'next/router'
+import { useQuizzes } from '../../../hooks'
 import React, { FC } from 'react'
 import Select from 'react-select'
 import useSWR from 'swr'
-import countries from '../../../../public/countries.json'
+import countries from '../../../helpers/countries.json'
 
 export const CountrySelector: FC<{
   timerStillRunning: boolean
   onCorrectGuess: () => void
 }> = ({ timerStillRunning, onCorrectGuess }) => {
-  const uuid = router?.query.uuid
+  // const uuid = router?.query.uuid
+  const uuid = ''
 
   const { data: quizz, mutate } = useSWR(`/api/quizzes/${uuid}`)
 

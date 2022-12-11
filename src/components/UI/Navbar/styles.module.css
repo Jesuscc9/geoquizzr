@@ -1,10 +1,3 @@
-.Navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.4rem 1rem;
-}
-
 .Navbar__mobile-logo {
   display: block;
 }
@@ -14,10 +7,6 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .Navbar {
-    padding: 0.4rem 2rem;
-  }
-
   .Navbar__mobile-logo {
     display: none;
   }
@@ -25,11 +14,6 @@
   .Navbar__logo {
     display: block;
   }
-}
-
-.Navbar h4 {
-  text-transform: uppercase;
-  color: var(--white-60);
 }
 
 .Navbar__user-data {

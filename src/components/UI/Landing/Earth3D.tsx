@@ -1,10 +1,10 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import React, { useEffect, useState } from 'react'
 import { useLoader } from '@react-three/fiber'
-import { adjust } from 'helpers/utils'
+import { adjust } from '../../../helpers/utils'
 
 export const Earth3D = () => {
-  const gltf = useLoader(GLTFLoader, '/assets/earth2/scene.gltf')
+  const gltf = useLoader(GLTFLoader, '/src/assets/earth2/scene.gltf')
 
   const [rotation, setRotation] = useState<number>(0)
 
