@@ -2,7 +2,6 @@ import Logo from '../../../assets/images/logo.svg'
 import MobileLogo from '../../../assets/images/mobile_logo.svg'
 import { Avatar, Button } from '..'
 import React, { FC } from 'react'
-import { useUser } from '@supabase/auth-helpers-react'
 import styles from './styles.module.css'
 import { useProfile } from '../../../hooks/useProfile'
 
@@ -27,7 +26,9 @@ export const Navbar: FC = () => {
       ) : (
         <div className={styles['Navbar__auth-buttons']}>
           <a href="signup">
-            <Button className="text-sm">signup</Button>
+            <Button className="text-sm">
+              <p className="text-white">Signup</p>
+            </Button>
           </a>
 
           <a href="login">

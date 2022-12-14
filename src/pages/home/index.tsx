@@ -16,10 +16,10 @@ const Home: FC = () => {
 
         <div className={styles.MainContainer}>
           <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-6xl">
+            <h1 className="font-bold text-6xl text-white">
               DISCOVER YOUR OWN <br /> WORLD!
             </h1>
-            <p className="text-lg">
+            <p className="text-lg text-white">
               Learn information about countries all around the world
             </p>
             <Link to="/quizzes/new" className="w-min">
@@ -27,7 +27,7 @@ const Home: FC = () => {
                 color="#ddb00f"
                 className="text-sm py-4 whitespace-nowrap"
               >
-                START LEARNING!
+                <p className="text-white">START LEARNING!</p>
               </Button>
             </Link>
           </div>

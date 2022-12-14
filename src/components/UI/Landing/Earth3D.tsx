@@ -1,10 +1,14 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { adjust } from '../../../helpers/utils'
 
-export const Earth3D = () => {
-  const gltf = useLoader(GLTFLoader, '/src/assets/earth2/scene.gltf')
+const MODEL_URL = import.meta.env.VITE_ASSETS_URL + '/scene.gltf'
+
+console.log({ MODEL_URL })
+
+export const Earth3D = (): FC => {
+  const gltf = useLoader(GLTFLoader, MODEL_URL)
 
   const [rotation, setRotation] = useState<number>(0)
 
