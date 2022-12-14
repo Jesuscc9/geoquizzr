@@ -10,7 +10,7 @@ export const Navbar: FC = () => {
   const { profile } = useProfile()
 
   return (
-    <nav className="px-8 py-8 flex justify-between items-center">
+    <nav className="px-8 py-8 flex justify-between items-center text-white">
       <a>
         <div>
           <img title="Logo" src={Logo} width="132" />
@@ -19,7 +19,7 @@ export const Navbar: FC = () => {
       <div>
         <p className="font-bold uppercase">geoquizzr</p>
       </div>
-      {profile ? (
+      {profile != null ? (
         <div className={styles['Navbar__user-data']}>
           <Avatar src={profile.avatar_url} />
           <h5 className="font-semibold">{profile.username}</h5>

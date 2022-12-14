@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Database } from './database'
 
 export interface iLoginValues {
   email: string
@@ -7,22 +8,17 @@ export interface iLoginValues {
 
 export interface iSignupValues extends iLoginValues {}
 
-export interface iGuess {
-  id: number
-  round_id: number
-  latlng: number[]
-  country_cca2: string
-  timed_out: boolean
-  consumed_seconds: number
-  score: number
-  created_at: Date
-}
-export interface iRound {
-  id: number
+type iGuessRow = Database['public']['Tables']['guess']['Row']
+
+export type iGuess = iGuessRow
+
+type iRoundRow = Database['public']['Tables']['rounds']['Row']
+
+export type iRound = iRoundRow & {
   guess: iGuess[]
-  created_at: Date
-  static_image_latlng: number[]
 }
+
+export type iRoundInsert = Database['public']['Tables']['rounds']['Insert']
 
 export interface iClue {
   key:
@@ -41,16 +37,16 @@ export interface iClue {
   component: FC<any>
   cost: number
 }
-export interface iQuizz {
-  id: number
-  total_seconds: number
-  uuid: string
-  created_by: string
-  total_rounds: number
-  created_at: Date
-  finished: boolean
-  rounds: iRound[]
+
+/* QUIZZ TYPES */
+
+type iQuizzRow = Database['public']['Tables']['quizzes']['Row']
+
+export type iQuizz = iQuizzRow & {
+  rounds: iRoundRow[]
 }
+
+export type iQuizzInsert = Database['public']['Tables']['quizzes']['Insert']
 
 export interface iNewRound {
   latlng?: number[]
@@ -70,7 +66,3 @@ export interface iUpdateQuizz {
   ended_at: Date
 }
 export type iNewGuess = any
-
-export interface iUpdateGuess {}
-
-export interface iUpdateRound {}

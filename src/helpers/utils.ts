@@ -1,4 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
 
 // Fetcher wrapper
 export const fetcher = async (
@@ -15,9 +17,9 @@ export const fetcher = async (
 
   options.method = method
 
-  if (data) options.data = JSON.stringify(data)
+  if (data != null) options.data = JSON.stringify(data)
 
-  return axios(url, options).then((res) => {
+  return await axios(url, options).then((res) => {
     if (res.statusText !== 'OK') {
       console.error('handle global error', res.statusText)
     }
@@ -53,3 +55,6 @@ export function adjust(
   const sgn = value < 0 ? -1 : 1
   return (sgn * mag * (toHigh - toLow)) / (fromHigh - fromLow)
 }
+
+TimeAgo.addDefaultLocale(en)
+export const timeAgo = new TimeAgo('en-US')

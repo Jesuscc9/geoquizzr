@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { fetcher } from '../helpers'
 import useSWR from 'swr'
-import { iNewGuess, iNewQuizz, iQuizz, iUpdateQuizz } from 'types'
+import { iNewGuess, iNewQuizz, iQuizz, iUpdateQuizz } from '../types'
+import { supabase } from '../services'
+import { iUseModel } from './useModel'
 
 const SWR_KEY = '/api/quizzes'
 
@@ -16,7 +18,7 @@ interface iUpdateProps {
   onSuccess?: (newQuizz: iQuizz) => void
 }
 
-interface iCreateGuess {
+interface iCreateQuizz {
   body: iNewGuess
   quizzId: string
   quizzUuid: string
@@ -28,7 +30,11 @@ interface iCreateRound {
   onSuccess: () => void
 }
 
-export const useQuizzes = () => {
+const fetchQuizzes = async (): Promise<any> => {
+  return (await supabase.from('quizzes').select('*')).data
+}
+
+export const useQuizzes = (): iUseModel<iQuizz[], iCreateQuizz> => {
   const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false)
   const [errorCreate, setErrorCreate] = useState<null | string>(null)
 
@@ -43,9 +49,9 @@ export const useQuizzes = () => {
     useState<boolean>(false)
   const [errorRound, setErrorRound] = useState<string | undefined>()
 
-  const { data: quizzes, error } = useSWR<iQuizz[]>(SWR_KEY)
+  const res = useSWR<iQuizz[]>('/quizzes', fetchQuizzes)
 
-  const create = async ({ body, onSuccess }: iCreateProps) => {
+  const create = async ({ body, onSuccess }: iCreateProps): Promise<void> => {
     setIsLoadingCreate(true)
     try {
       const newQuizz: iQuizz = await fetcher(SWR_KEY, 'POST', body)
@@ -58,7 +64,11 @@ export const useQuizzes = () => {
     }
   }
 
-  const update = async ({ uuid, body, onSuccess }: iUpdateProps) => {
+  const update = async ({
+    uuid,
+    body,
+    onSuccess
+  }: iUpdateProps): Promise<void> => {
     setIsLoadingUpdate(true)
     try {
       const newQuizz: iQuizz = await fetcher(`${SWR_KEY}/${uuid}`, 'PUT', body)
@@ -76,7 +86,7 @@ export const useQuizzes = () => {
     onSuccess,
     quizzId,
     quizzUuid
-  }: iCreateGuess) => {
+  }: iCreateGuess): Promise<void> => {
     setIsLoadingCreateGuess(true)
 
     try {
@@ -93,7 +103,10 @@ export const useQuizzes = () => {
     }
   }
 
-  const createRound = async ({ quizzUuid, onSuccess }: iCreateRound) => {
+  const createRound = async ({
+    quizzUuid,
+    onSuccess
+  }: iCreateRound): Promise<void> => {
     setIsLoadingCreateRound(true)
 
     try {
@@ -107,20 +120,11 @@ export const useQuizzes = () => {
   }
 
   return {
-    quizzes,
-    isLoading: !quizzes && !error,
-    error,
-    create,
-    isLoadingCreate,
-    errorCreate,
-    update,
-    isLoadingUpdate,
-    errorUpdate,
-    createGuess,
-    isLoadingCreateGuess,
-    errorGuess,
-    isLoadingCreateRound,
-    errorRound,
-    createRound
+    data: res,
+    error: res.error,
+    isLoading: res.error == null || res.data == null,
+    actions: {
+      create
+    }
   }
 }

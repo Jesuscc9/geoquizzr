@@ -4,6 +4,7 @@ import React, { Suspense } from 'react'
 import styles from './styles.module.css'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import { Link } from 'react-router-dom'
 
 const Home: NextPage = () => {
   return (
@@ -22,14 +23,14 @@ const Home: NextPage = () => {
             <p className="text-lg">
               Learn information about countries all around the world
             </p>
-            <a className="w-min" href="/quizzes/new">
+            <Link to="/quizzes/new" className="w-min">
               <Button
                 color="#ddb00f"
                 className="text-sm py-4 whitespace-nowrap"
               >
                 START LEARNING!
               </Button>
-            </a>
+            </Link>
           </div>
           <div>
             <div className={styles.globe + ' cursor-grabbing m-auto mt-20'}>

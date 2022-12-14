@@ -1,14 +1,15 @@
 import axios from 'axios'
-import React, { useEffect, useState, createContext, useContext } from 'react'
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  Context
+} from 'react'
 import { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../services/'
 
 import useSWR from 'swr'
-
-const fetchProfile = async () => {
-  const id = await supabase.auth.getUser()
-  return supabase.from('profiles').select('*').eq('id', 12)
-}
 
 const SWR_KEY = '/api/auth'
 
@@ -22,12 +23,10 @@ export const UserContext = createContext<iUserContext>({
   session: null
 })
 
-export const UserProvider = ({ ...props }) => {
+export const UserProvider = ({ ...props }: any) => {
   const [session, setSession] = useState<Session | null>()
   const [user, setUser] = useState<User | null>()
   const profile = useSWR('/profile', fetchProfile)
-
-  console.log({ profile })
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
