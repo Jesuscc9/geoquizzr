@@ -6,6 +6,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "start": "vite start",
+    "preview": "vite preview",
     "lint": "vite lint",
     "execute-husky": "npx husky install && npx husky add .husky/pre-commit \"npx lint-staged\"",
     "update-types": "npx supabase gen types typescript --project-id \"yhviecivrazplejxqqdw\" > src/types/database.ts"

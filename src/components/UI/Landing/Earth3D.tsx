@@ -2,6 +2,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import React, { FC, useEffect, useState } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { adjust } from '../../../helpers/utils'
+import '../../../assets/earth2/scene.gltf'
 
 const MODEL_URL = import.meta.env.VITE_ASSETS_URL + '/scene.gltf'
 
