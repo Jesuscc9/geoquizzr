@@ -2,7 +2,6 @@ import PersonIcon from '../../../../assets/images/person.png'
 import { ClueWrapper } from '../../../UI'
 import { motion } from 'framer-motion'
 import { maskNumber } from '../../../../helpers/utils'
-import Image from 'next/image'
 import React, { FC, useState } from 'react'
 import useSWR from 'swr'
 import { iClue } from '../../../../types'
@@ -23,14 +22,15 @@ export const PopulationClue: FC<iProps> = ({ data, decrement }) => {
 
   const { data: quizz } = useSWR(`/api/quizzes/${uuid}`)
 
-  if (!quizz) return <div>cargando</div>
+  // if (!quizz) return <div>cargando</div>
+  if (false) return <div>cargando</div>
 
   const currentRound = quizz.rounds.at(-1)
 
   const { population } = currentRound.country
 
   const handleClueClick = () => {
-    if (revealClue === true) return
+    if (revealClue) return
     setRevealClue(true)
     decrement(data.cost)
   }

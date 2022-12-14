@@ -1,12 +1,11 @@
 import { Button, Footer, Navbar, Earth3D } from '../../components/UI'
-import { NextPage } from 'next'
-import React, { Suspense } from 'react'
+import React, { FC, Suspense } from 'react'
 import styles from './styles.module.css'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Link } from 'react-router-dom'
 
-const Home: NextPage = () => {
+const Home: FC = () => {
   return (
     <>
       <div id="BackgroundDecoration" key="home"></div>
